@@ -1,4 +1,8 @@
-#React-native
+# React-native
+>真机调试要把/android/build.gradle中的2.2.3改为1.2.3和把/android/gradle/wrapper/gradle-wrapper.properties中的gradle-2.14.1-all.zip改为gradle-2.2-all.zip
+>电脑调试要把/android/build.gradle中的1.2.3改为2.2.3和把/android/gradle/wrapper/gradle-wrapper.properties中的gradle-2.2-all.zip改为gradle-2.14.1-all.zip
+>更改后重新yarn
+
 ```
 import React, { Component } from 'react'; //依赖react
 import { AppRegistry, StyleSheet, Text, View } from 'react-native'; //引用react-nativez注册，样式定义和组件
@@ -6,13 +10,13 @@ import { AppRegistry, StyleSheet, Text, View } from 'react-native'; //引用reac
 AppRegistry.registerComponent()
 StyleSheet.create({})
 ```
-###程序入口
+### 程序入口
 AppRegistry.registerComponent这个方法一般只会调用一次
 
 app注册.注册组件(组件名，引用组件回调)
 ```AppRegistry.registerComponent('AwesomeProject2', () => AwesomeProject2);```
 
-###样式
+### 样式
 
 ```
 //使用

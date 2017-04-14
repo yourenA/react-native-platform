@@ -8,8 +8,11 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.syarul.rnlocation.RNLocation;
+//import me.ele.dodo.AMapLocationReactPackage;
 
-import org.lovebing.reactnative.baidumap.BaiduMapPackage;
+import com.reactnativecomponent.amaplocation.RCTAMapLocationPackage;    //import package
+import com.reactnativecomponent.amap.RCTAMapPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,8 +29,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new SplashScreenReactPackage(),
-            new BaiduMapPackage(getApplicationContext())
+          new SplashScreenReactPackage(),
+          new RNLocation(),
+          //new AMapLocationReactPackage(),
+          new RCTAMapLocationPackage(),  //register Module
+          new RCTAMapPackage()  //register Module
       );
     }
   };

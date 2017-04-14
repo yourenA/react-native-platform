@@ -12,10 +12,15 @@ import {
   View
 } from 'react-native';
 import Index from './src/index'
+import { Provider } from 'react-redux';
+import store from './src/store/store';
 export default class ReactNativePlatform extends Component {
   render() {
     return (
-        <Index/>
+        <Provider store={store}>
+          <Index/>
+        </Provider>
+
     );
   }
 }

@@ -20,6 +20,9 @@ import SwipeableViews from 'react-swipeable-views-native'
 import {autoPlay} from 'react-swipeable-views-utils'
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 import LoadingSpinner from '../components/loadingSpinner'
+import { fetchEndPoints } from './../actions/fetchZH';
+import { connect } from 'react-redux';
+
 const ListItem = ({data}) => {
     return (
         <TouchableNativeFeedback
@@ -39,39 +42,21 @@ const ListItem = ({data}) => {
 }
 
 
-export default class Home extends Component {
+class Home extends Component {
     constructor() {
         super()
-        /**
-         * ListView数据要使用DataSource定义
-         *
-        * */
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
-        this.state = {
-            topStories: [],
-            stories: ds,
-        }
     }
     componentDidMount=()=>{
-        let url = 'http://news-at.zhihu.com/api/4/news/latest'
-        fetch(url)
-            .then((data) => {
-                return data.json()
-            })
-            .then((res) => {
-                /**
-                 * ListView拼接数据要使用cloneWithRows
-                 * */
-                this.setState({
-                    stories: this.state.stories.cloneWithRows(res.stories),
-                })
-                this._swiperViews(res.top_stories)
-            })
+        console.log("this.props",this.props);
+        if(!this.props.fetchZH.loaded){
+            console.log("获取数据")
+            this.props.dispatch( fetchEndPoints());
+        }
     }
-    _swiperViews=(topStories)=>{
-        console.log("topStories",topStories)
+    _swiperViews=()=>{
+        console.log("topStories",this.props.fetchZH.top_stories);
         let views = []
-        topStories.forEach((ele, index, arr) => {
+        this.props.fetchZH.top_stories.forEach((ele, index, arr) => {
             views.push(
                 <TouchableWithoutFeedback onPress={() => Actions.content({articleID: ele.id})}>
                     <View style={[styles.slide]}>
@@ -93,26 +78,22 @@ export default class Home extends Component {
                 </TouchableWithoutFeedback>
             )
         })
-        this.setState({
-            topStories: views
-        })
+        return views
     }
     render() {
-        if (this.state.topStories.length == 0) return <LoadingSpinner animating={true}/>
+        if (this.props.fetchZH.top_stories.length == 0) return <LoadingSpinner animating={true}/>
         return (
             <View style={styles.container}>
                 <ScrollView>
                     <AutoPlaySwipeableViews
                         ref='swiper'
                         style={styles.slideContainer}
-                        autoplay={true}
-                        resistance={true}
+                        interval={5000}
                         springConfig={{tension: 100, friction: 30}}
-                        interval={3000}
-                        children={this.state.topStories.length == 0 ? <View></View> : this.state.topStories}
+                        children={this.props.fetchZH.top_stories.length == 0 ? <View></View> : this._swiperViews()}
                     />
                     <ListView
-                        dataSource={this.state.stories}
+                        dataSource={this.props.fetchZH.stories}
                         renderRow={(rowData, sectionID, rowID) => <ListItem data={rowData} key={rowID}/>}
                         renderSeparator={(sectionID, rowID, adjacentRowHighlighted) => {
                             return <View style={{borderWidth: .3, borderColor: '#ccc'}} key={rowID}></View>
@@ -167,3 +148,9 @@ const styles = StyleSheet.create({
         height: 60
     },
 })
+
+const mapStateToProps = state => ({
+    fetchZH: state.fetchZH
+})
+
+export default connect(mapStateToProps)(Home);

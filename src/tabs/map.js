@@ -20,7 +20,8 @@ import {
     Text,
     View,
     TouchableHighlight,
-    Dimensions
+    Dimensions,
+    Platform
 } from 'react-native';
 
 
@@ -52,6 +53,7 @@ export default class BaiduMapDemo extends Component {
 
 
     render() {
+        console.log(this.state.mapType)
         return (
             <View style={styles.container}>
                 <MapView
@@ -60,21 +62,13 @@ export default class BaiduMapDemo extends Component {
                     zoom={this.state.zoom}
                     mapType={this.state.mapType}
                     center={this.state.center}
-                    markers={this.state.markers}
                     style={styles.map}
-                    onMarkerClick={(e) => {
-                        console.warn(JSON.stringify(e));
-                    }}
-                    onMapClick={(e) => {
-                    }}
-                >
-                </MapView>
-
+                />
             </View>
         );
     }
 }
-
+let deviceWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
@@ -82,13 +76,12 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        paddingTop: Platform.OS === 'ios' ? 60 : 54,
+        paddingBottom: 50
     },
     map: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height - 200,
+        width: 200,
+        height: 200,
         marginBottom: 16
     }
 });

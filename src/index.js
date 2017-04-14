@@ -16,7 +16,12 @@ import SplashScreen from 'react-native-splash-screen'//启动屏
 import Home from './tabs/home';
 import Content from './tabs/content';
 import Pic from './tabs/pic';
-import Map from './tabs/map';
+import MqttTest from './tabs/MqttTest';
+import SmartMap from './tabs/smartmap';
+import Count from './tabs/count';
+// import SmartLocation from './tabs/smartMapLocation';
+// import Location from './tabs/location';
+// import EleLocation from './tabs/eleLocation';
 class TabIcon extends React.Component {
     render() {
         return (
@@ -80,11 +85,11 @@ export default class Index extends Component {
                         <Scene key="tab2"  title="图片" icon={TabIcon} tabIcon="circle-o" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
                             <Scene key="ooxx" component={Pic} title="藏图阁" />
                         </Scene>
-                        <Scene key="tab3" title="歌单" icon={TabIcon} tabIcon="music" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
-                            <Scene key='music' title='热歌榜' component={Home} />
+                        <Scene key="tab3" title="MQTT" icon={TabIcon} tabIcon="music" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
+                            <Scene key='music' title='MQTT TEST' component={MqttTest} />
                         </Scene>
-                        <Scene key="tab4" title="地图" icon={TabIcon} tabIcon="map-marker" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
-                            <Scene key='map' title='我在哪?' component={Map} />
+                        <Scene key="tab5" title="地图" icon={TabIcon} tabIcon="map" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
+                            <Scene key='map' title='我在哪?' component={SmartMap} />
                         </Scene>
                     </Scene>
                 </Scene>
