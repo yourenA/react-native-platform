@@ -15,10 +15,12 @@ import SplashScreen from 'react-native-splash-screen'//启动屏
 
 import Home from './tabs/home';
 import Content from './tabs/content';
-import Pic from './tabs/pic';
-import MqttTest from './tabs/MqttTest';
+import News from './tabs/news/index';
+import Toutiaozhengwen from './tabs/news/toutiaozhengwen';
 import SmartMap from './tabs/smartmap';
-import Count from './tabs/count';
+import MqttTest from './tabs/MqttTest';
+// import Pic from './tabs/pic';
+// import Count from './tabs/count';
 // import SmartLocation from './tabs/smartMapLocation';
 // import Location from './tabs/location';
 // import EleLocation from './tabs/eleLocation';
@@ -82,8 +84,9 @@ export default class Index extends Component {
                             <Scene key='article'  component={Home} title='你知道吗?' />
                             <Scene key="content" component={Content} title="内容页" backTitle="后退" hideTabBar/>
                         </Scene>
-                        <Scene key="tab2"  title="图片" icon={TabIcon} tabIcon="circle-o" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
-                            <Scene key="ooxx" component={Pic} title="藏图阁" />
+                        <Scene key="tab2"  title="新闻" icon={TabIcon} tabIcon="circle-o" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
+                            <Scene key="ooxx" component={News} title="新闻" />
+                            <Scene key="toutiaozhengwen" component={Toutiaozhengwen} title="新闻内容"  backTitle="后退" hideTabBar/>
                         </Scene>
                         <Scene key="tab3" title="MQTT" icon={TabIcon} tabIcon="music" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
                             <Scene key='music' title='MQTT TEST' component={MqttTest} />

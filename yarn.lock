@@ -3041,6 +3041,13 @@ react-native-router-flux:
     react-native-tabs "^1.0.9"
     react-static-container "1.0.1"
 
+react-native-scrollable-tab-view:
+  version "0.7.4"
+  resolved "http://registry.npm.taobao.org/react-native-scrollable-tab-view/download/react-native-scrollable-tab-view-0.7.4.tgz#623a047cbfab35a27b8689095af524e9aac74b62"
+  dependencies:
+    react-static-container "^1.0.1"
+    react-timer-mixin "^0.13.3"
+
 react-native-smart-amap:
   version "1.0.4"
   resolved "http://registry.npm.taobao.org/react-native-smart-amap/download/react-native-smart-amap-1.0.4.tgz#4434cf76d4f77660b0e9c7546b09561f4427330d"
@@ -3172,7 +3179,7 @@ react-redux:
     loose-envify "^1.1.0"
     prop-types "^15.0.0"
 
-react-static-container@1.0.1:
+react-static-container@^1.0.1, react-static-container@1.0.1:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/react-static-container/download/react-static-container-1.0.1.tgz#694c0dd68a896b879519afb548399cc1989c9ab0"
 
@@ -3209,7 +3216,7 @@ react-test-renderer@16.0.0-alpha.6:
     fbjs "^0.8.9"
     object-assign "^4.1.0"
 
-react-timer-mixin@^0.13.2:
+react-timer-mixin@^0.13.2, react-timer-mixin@^0.13.3:
   version "0.13.3"
   resolved "http://registry.npm.taobao.org/react-timer-mixin/download/react-timer-mixin-0.13.3.tgz#0da8b9f807ec07dc3e854d082c737c65605b3d22"
 

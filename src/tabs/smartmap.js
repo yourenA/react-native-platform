@@ -24,11 +24,12 @@ import {
     Alert,
     TouchableWithoutFeedback
 } from 'react-native';
+import { connect } from 'react-redux';
 let deviceWidth = Dimensions.get('window').width
 let deviceHeight = Dimensions.get('window').height
 import Icon from 'react-native-vector-icons/FontAwesome'
-
-export default class SmartMapDemo extends Component {
+import { loadMap} from './../actions/smartMap';
+class SmartMapDemo extends Component {
 
     constructor() {
         super();
@@ -54,8 +55,12 @@ export default class SmartMapDemo extends Component {
     }
 
     componentDidMount() {
-        AMapLocation.init({interval: 2000}) //使用默认定位配置
-        AMapLocation.getLocation();
+        if(!this.props.smartMap.loadMap){
+            console.log("加载地图")
+            AMapLocation.init({interval: 2000}) //使用默认定位配置
+            AMapLocation.getLocation();
+            this.props.dispatch( loadMap());
+        }
         NativeAppEventEmitter.addListener('amap.location.onLocationResult', this._onLocationResult)
         NativeAppEventEmitter.addListener('amap.onPOISearchDone', this._onPOISearchDone)
         //NativeAppEventEmitter.addListener('amap.onPOISearchFailed', this._onPOISearchFailed)
@@ -78,6 +83,9 @@ export default class SmartMapDemo extends Component {
                 longitude: result.coordinate.longitude,
             }
             if (this._amap) {
+                this.setState({
+                    center:this._coordinate
+                })
                 this._amap.setOptions({
                     zoomLevel: 18.1,
                 })
@@ -98,6 +106,9 @@ export default class SmartMapDemo extends Component {
             coordinate: this._coordinate,
             keywords:'餐厅',
             sortrule:0
+        })
+        this.setState({
+            center:{longitude:longitude, latitude:latitude}
         })
     }
     _searchNearBy = (searchParams)=> {
@@ -190,3 +201,10 @@ const styles = StyleSheet.create({
         flex:1
     }
 });
+
+
+const mapStateToProps = state => ({
+    smartMap: state.smartMap
+})
+
+export default connect(mapStateToProps)(SmartMapDemo);

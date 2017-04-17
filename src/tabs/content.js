@@ -34,6 +34,7 @@ export default class Content extends Component {
                     .then((css) => {
                         let cssLink = '<style>'+css+'</style>',
                             imgLink = '<div class="img-wrap"><h1 class="headline-title">'+responseJson.title+'</h1><span class="img-source"></span><img src="'+responseJson.image+'" alt=""><div class="img-mask"></div></div>'
+                        console.log(cssLink + responseJson.body.replace(/<div class=\"img-place-holder\"><\/div>/, imgLink))
                         this.setState({
                             html: cssLink + responseJson.body.replace(/<div class=\"img-place-holder\"><\/div>/, imgLink),
                         })
