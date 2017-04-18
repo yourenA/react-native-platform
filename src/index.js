@@ -19,6 +19,7 @@ import News from './tabs/news/index';
 import Toutiaozhengwen from './tabs/news/toutiaozhengwen';
 import SmartMap from './tabs/smartmap';
 import MqttTest from './tabs/MqttTest';
+import BaiduMap from './tabs/map';
 // import Pic from './tabs/pic';
 // import Count from './tabs/count';
 // import SmartLocation from './tabs/smartMapLocation';
@@ -92,7 +93,7 @@ export default class Index extends Component {
                             <Scene key='music' title='MQTT TEST' component={MqttTest} />
                         </Scene>
                         <Scene key="tab5" title="地图" icon={TabIcon} tabIcon="map" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
-                            <Scene key='map' title='我在哪?' component={SmartMap} />
+                            <Scene key='map' title='我在哪?' component={BaiduMap} />
                         </Scene>
                     </Scene>
                 </Scene>

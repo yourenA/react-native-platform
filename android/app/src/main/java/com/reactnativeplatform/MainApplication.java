@@ -13,6 +13,7 @@ import com.syarul.rnlocation.RNLocation;
 
 import com.reactnativecomponent.amaplocation.RCTAMapLocationPackage;    //import package
 import com.reactnativecomponent.amap.RCTAMapPackage;
+import org.lovebing.reactnative.baidumap.BaiduMapPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +34,8 @@ public class MainApplication extends Application implements ReactApplication {
           new RNLocation(),
           //new AMapLocationReactPackage(),
           new RCTAMapLocationPackage(),  //register Module
-          new RCTAMapPackage()  //register Module
+          new RCTAMapPackage(),  //register Module
+          new BaiduMapPackage(getApplicationContext())
       );
     }
   };

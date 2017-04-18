@@ -6,10 +6,6 @@ import React, {
     Component,
     PropTypes
 } from 'react';
-
-import AMap from 'react-native-smart-amap'
-import AMapLocation from 'react-native-smart-amap-location'
-
 import {
     Button,
     AppRegistry,
@@ -22,13 +18,19 @@ import {
     NativeAppEventEmitter,
     TouchableOpacity,
     Alert,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    AsyncStorage
 } from 'react-native';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 let deviceWidth = Dimensions.get('window').width
 let deviceHeight = Dimensions.get('window').height
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { loadMap} from './../actions/smartMap';
+import AMap from 'react-native-smart-amap'
+import AMapLocation from 'react-native-smart-amap-location'
+import {loadMap} from './../actions/smartMap';
+let timer;
+let locationAddListener;
+let POISearchAddListener;
 class SmartMapDemo extends Component {
 
     constructor() {
@@ -42,34 +44,50 @@ class SmartMapDemo extends Component {
             },
             trafficEnabled: false,
             baiduHeatMapEnabled: false,
-            markers: [{
-                longitude: 113.981718,
-                latitude: 22.542449,
-                title: "Window of the world"
-            }, {
-                longitude: 113.995516,
-                latitude: 22.537642,
-                title: ""
-            }]
         };
     }
 
     componentDidMount() {
-        if(!this.props.smartMap.loadMap){
+        this._loadInitialState()
+        if (!this.props.smartMap.loadMap) {
             console.log("加载地图")
-            AMapLocation.init({interval: 2000}) //使用默认定位配置
+            AMapLocation.init({}) //使用默认定位配置
             AMapLocation.getLocation();
-            this.props.dispatch( loadMap());
+            this.props.dispatch(loadMap());
         }
-        NativeAppEventEmitter.addListener('amap.location.onLocationResult', this._onLocationResult)
-        NativeAppEventEmitter.addListener('amap.onPOISearchDone', this._onPOISearchDone)
+        timer=setInterval(function () {
+            AMapLocation.getLocation();
+        },5000)
+        locationAddListener= NativeAppEventEmitter.addListener('amap.location.onLocationResult', this._onLocationResult)
+        POISearchAddListener=NativeAppEventEmitter.addListener('amap.onPOISearchDone', this._onPOISearchDone)
         //NativeAppEventEmitter.addListener('amap.onPOISearchFailed', this._onPOISearchFailed)
     }
-
+    componentWillUnmount(){
+        locationAddListener.remove();
+        POISearchAddListener.remove();
+        clearInterval(timer)
+    }
+    async _loadInitialState(){
+        try{
+            var latitude=await AsyncStorage.getItem('latitude');
+            var longitude=await AsyncStorage.getItem('longitude');
+            this.setState({
+                center: {
+                    longitude: Number(longitude),
+                    latitude: Number(latitude)
+                },
+            })
+            this._amap.setCenterCoordinate({
+                longitude: Number(longitude),
+                latitude:  Number(latitude),
+            })
+        }catch(error){
+        }
+    }
     _onLocationResult = (result) => {
-        console.log(`_onLocationResult...`)
+        console.log(`latitude`,result.coordinate.latitude)
+        console.log(`longitude`,result.coordinate.longitude)
         /**这里使用alert害死人，不能直接alert来弹出对象*/
-        console.log('定位结果:', result)
         if (result.error) {
             Alert.alert(`map-错误代码: ${result.error.code}, map-错误信息: ${result.error.localizedDescription}`)
         }
@@ -77,17 +95,15 @@ class SmartMapDemo extends Component {
             if (result.formattedAddress) {
                 Alert.alert(`${result.formattedAddress}`)
             }
-            Alert.alert(`map-纬度 = ${result.coordinate.latitude}, map-经度 = ${result.coordinate.longitude}`)
             this._coordinate = {
                 latitude: result.coordinate.latitude,
                 longitude: result.coordinate.longitude,
             }
+            AsyncStorage.setItem('latitude', result.coordinate.latitude.toString() );
+            AsyncStorage.setItem('longitude', result.coordinate.longitude.toString() );
             if (this._amap) {
-                this.setState({
-                    center:this._coordinate
-                })
                 this._amap.setOptions({
-                    zoomLevel: 18.1,
+                    zoomLevel: 15.1,
                 })
                 this._amap.setCenterCoordinate(this._coordinate)
             }
@@ -104,11 +120,11 @@ class SmartMapDemo extends Component {
         this._searchNearBy({
             page: 1,
             coordinate: this._coordinate,
-            keywords:'餐厅',
-            sortrule:0
+            keywords: '餐厅',
+            sortrule: 0
         })
         this.setState({
-            center:{longitude:longitude, latitude:latitude}
+            center: {longitude: longitude, latitude: latitude}
         })
     }
     _searchNearBy = (searchParams)=> {
@@ -145,14 +161,15 @@ class SmartMapDemo extends Component {
                 style={{
                     position: 'absolute',
                     borderRadius: 30,
-                    top: (deviceHeight-( Platform.OS === 'ios' ? 60 : 54))/2 -30,
-                    left: deviceWidth/2 - 5,
+                    top: (deviceHeight - ( Platform.OS === 'ios' ? 60 : 54)) / 2 - 30,
+                    left: deviceWidth / 2 - 5,
                 }}
             >
                 <Icon name='map-marker' size={30} color='blue'/>
             </TouchableOpacity>
         )
     }
+
     render() {
         /**
          * ref={ component => this._amap = component }
@@ -176,8 +193,7 @@ class SmartMapDemo extends Component {
                                 latitude: this.state.center.latitude,
                                 longitude: this.state.center.longitude,
                             },
-                            zoomLevel: 18.1,
-                            centerMarker: Platform.OS == 'ios' ? 'icon_location' : 'poi_marker',
+                            zoomLevel: 15.1,
                         }}
                         onLayout={this._onLayout}
                         onDidMoveByUser={this._onDidMoveByUser}//拖动地图回调事件
@@ -197,8 +213,8 @@ const styles = StyleSheet.create({
         paddingTop: Platform.OS === 'ios' ? 60 : 54,
         paddingBottom: 50
     },
-    map:{
-        flex:1
+    map: {
+        flex: 1
     }
 });
 

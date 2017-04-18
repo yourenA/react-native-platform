@@ -9,4 +9,6 @@ include ':react-native-smart-amap-location'
 project(':react-native-smart-amap-location').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-smart-amap-location/android')
 include ':react-native-smart-amap'
 project(':react-native-smart-amap').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-smart-amap/android')
+include ':react-native-baidu-map'
+project(':react-native-baidu-map').projectDir = new File(settingsDir, '../node_modules/react-native-baidu-map/android')
 include ':app'

@@ -3060,7 +3060,7 @@ react-native-splash-screen:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/react-native-splash-screen/download/react-native-splash-screen-2.0.0.tgz#d03caaef7d92a0ac1eab60ee4204a1d6bf8234ec"
 
-react-native-storage@^0.1.2:
+react-native-storage@^0.1.2, react-native-storage@^0.1.5:
   version "0.1.5"
   resolved "http://registry.npm.taobao.org/react-native-storage/download/react-native-storage-0.1.5.tgz#91d77560e41cc9e62d587b55a21b3d6ebaba5599"
 
