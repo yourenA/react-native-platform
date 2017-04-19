@@ -2930,6 +2930,10 @@ punycode@^1.4.1:
   version "1.4.1"
   resolved "http://registry.npm.taobao.org/punycode/download/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
 
+qr.js@0.0.0:
+  version "0.0.0"
+  resolved "http://registry.npm.taobao.org/qr.js/download/qr.js-0.0.0.tgz#cace86386f59a0db8050fa90d9b6b0e88a1e364f"
+
 qs@~6.4.0:
   version "6.4.0"
   resolved "http://registry.npm.taobao.org/qs/download/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
@@ -3002,6 +3006,10 @@ react-native-baidu-map:
   version "0.6.0"
   resolved "http://registry.npm.taobao.org/react-native-baidu-map/download/react-native-baidu-map-0.6.0.tgz#cb4937181e8e0cd2125d347a5b87ca13971647dd"
 
+react-native-camera@0.6:
+  version "0.6.0"
+  resolved "http://registry.npm.taobao.org/react-native-camera/download/react-native-camera-0.6.0.tgz#dd2760b7857d660761c78f2da575b494fdc8dcb5"
+
 react-native-experimental-navigation@0.26.x:
   version "0.26.10"
   resolved "http://registry.npm.taobao.org/react-native-experimental-navigation/download/react-native-experimental-navigation-0.26.10.tgz#355e37929a2bfb84088dca331f34bc575297df68"
@@ -3020,6 +3028,12 @@ react-native-experimental-navigation@0.26.x:
 react-native-location:
   version "0.27.0"
   resolved "http://registry.npm.taobao.org/react-native-location/download/react-native-location-0.27.0.tgz#8e920a7bfbd4b55833028f2dad65edc12449d6f5"
+
+react-native-qrcode:
+  version "0.2.3"
+  resolved "http://registry.npm.taobao.org/react-native-qrcode/download/react-native-qrcode-0.2.3.tgz#cce06c5a8509c1f55a18d79053ace6fa0cedb376"
+  dependencies:
+    qr.js "0.0.0"
 
 react-native-root-siblings@^1.0.8:
   version "1.2.0"

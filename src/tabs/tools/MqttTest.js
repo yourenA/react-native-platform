@@ -17,7 +17,8 @@ import {
     TouchableHighlight,
     Dimensions,
     Platform,
-    AsyncStorage
+    AsyncStorage,
+    Alert
 } from 'react-native';
 import init from 'react_native_mqtt';
 
@@ -56,7 +57,7 @@ export default class MqttTest extends Component {
         client.send(message);
     }
     onFailure=(err)=>{
-        console.log("Connect failed!")
+        Alert.alert('Connect failed!');
         console.log(err)
     }
     onConnectionLost = (responseObject)=> {

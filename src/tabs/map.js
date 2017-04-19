@@ -16,7 +16,8 @@ import {
     Text,
     View,
     TouchableHighlight,
-    Dimensions
+    Dimensions,
+    Alert
 } from 'react-native';
 let locationTimer
 
@@ -72,6 +73,7 @@ export default class BaiduMapDemo extends Component {
     _location = ()=> {
         Geolocation.getCurrentPosition()
             .then(data => {
+                Alert.alert(data.city)
                 console.log(data);
                 this.setState({
                     zoom: 15,
@@ -88,6 +90,7 @@ export default class BaiduMapDemo extends Component {
                 });
             })
             .catch(e => {
+                Alert.alert(`无法定位`)
                 console.log(e, 'error');
             })
     }

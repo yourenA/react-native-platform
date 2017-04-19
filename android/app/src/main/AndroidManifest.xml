@@ -37,6 +37,9 @@
     <!-- 更改设置 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <!--*************************高德地图-定位所需要权限*************************-->
+    <!--相机-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_VIDEO"/>
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="22" />
@@ -49,7 +52,7 @@
       android:theme="@style/AppTheme">
         <meta-data
                 android:name="com.baidu.lbsapi.API_KEY"
-                android:value="O7Q8msomoUGPjIim3w8pqvLONOMF2bSx"/>
+                android:value="o6cTOkWfvsvGuSWrWoqgGXPiDwgpSbB1"/>
         <!--高德地图SDK key设置-->
         <meta-data
                 android:name="com.amap.api.v2.apikey"

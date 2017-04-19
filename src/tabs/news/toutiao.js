@@ -17,11 +17,13 @@ import {fetchToutiao} from './../../actions/news/toutiao';
 import {connect} from 'react-redux';
 import LoadingSpinner from '../../components/loadingSpinner'
 import NewsItem from '../../components/newsItem'
-
+import RightBottomBtn from './../../components/rightBottomBtn'
 class Toutiao extends Component {
     constructor() {
         super()
-        this.state = {}
+        this.state = {
+            showTurnTop:false
+        }
     }
 
     componentDidMount = ()=> {
@@ -35,6 +37,27 @@ class Toutiao extends Component {
         let newPage=this.props.toutiao[`page_${this.props.type}`]+1;
         this.props.dispatch( fetchToutiao(this.props.type,newPage));
     }
+    _renderTurnTopBtn=()=> {
+        if(this.state.showTurnTop){
+            return (
+            <RightBottomBtn onPress={() => { this._scrollView.scrollTo({y: 0}); }} icon="chevron-up" />
+            )
+        }else {
+            return null
+        }
+
+    }
+    scrollView=(e)=>{
+        if(e.nativeEvent.contentOffset.y>600){
+            this.setState({
+                showTurnTop:true
+            })
+        }else{
+            this.setState({
+                showTurnTop:false
+            })
+        }
+    }
     render() {
         /**
          * data通过cloneWithRows拼接，不能直接使用data.length
@@ -42,7 +65,10 @@ class Toutiao extends Component {
         if (this.props.toutiao[`data_${this.props.type}`].rowIdentities.length == 0) return <LoadingSpinner animating={true}/>;
         return (
             <View style={styles.container}>
-                <ScrollView>
+                <ScrollView
+                    ref={(scrollView) => { this._scrollView = scrollView; }}
+                    scrollEventThrottle={200}
+                    onScroll={this.scrollView } >
                     <ListView
                         dataSource={this.props.toutiao[`data_${this.props.type}`]}
                         renderRow={(rowData, sectionID, rowID) => <NewsItem data={rowData} type={this.props.type} key={rowID}/>}
@@ -55,6 +81,7 @@ class Toutiao extends Component {
                     </TouchableOpacity>
 
                 </ScrollView>
+                {this._renderTurnTopBtn()}
 
             </View>
         );

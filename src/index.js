@@ -18,8 +18,11 @@ import Content from './tabs/content';
 import News from './tabs/news/index';
 import Toutiaozhengwen from './tabs/news/toutiaozhengwen';
 import SmartMap from './tabs/smartmap';
-import MqttTest from './tabs/MqttTest';
+import MqttTest from './tabs/tools/MqttTest';
+import ScanQR from './tabs/tools/scanQR';
+import Weather from './tabs/tools/weather';
 import BaiduMap from './tabs/map';
+import Tool from './tabs/Tool';
 // import Pic from './tabs/pic';
 // import Count from './tabs/count';
 // import SmartLocation from './tabs/smartMapLocation';
@@ -81,7 +84,7 @@ export default class Index extends Component {
             <Router onExitApp={this._backAndroidHandler}>
                 <Scene key="root" hideNavBar>
                     <Scene key="tabbar" tabs tabBarStyle={{backgroundColor: '#FFF', borderTopWidth: 1, borderTopColor: '#BBB'}}>
-                        <Scene key="tab1" initial title="知乎" icon={TabIcon} tabIcon="home" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
+                        <Scene key="tab1"  title="知乎" icon={TabIcon} tabIcon="home" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
                             <Scene key='article'  component={Home} title='你知道吗?' />
                             <Scene key="content" component={Content} title="内容页" backTitle="后退" hideTabBar/>
                         </Scene>
@@ -89,8 +92,11 @@ export default class Index extends Component {
                             <Scene key="ooxx" component={News} title="新闻" />
                             <Scene key="toutiaozhengwen" component={Toutiaozhengwen} title="新闻内容"  backTitle="后退" hideTabBar/>
                         </Scene>
-                        <Scene key="tab3" title="MQTT" icon={TabIcon} tabIcon="music" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
-                            <Scene key='music' title='MQTT TEST' component={MqttTest} />
+                        <Scene key="tab3" initial title="工具" icon={TabIcon} tabIcon="book" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
+                            <Scene key='tool' title='工具' component={Tool} />
+                            <Scene key='mqtt' title='Mqtt test' component={MqttTest} backTitle="后退"  hideTabBar/>
+                            <Scene key='scanQR' title='扫描二维码' component={ScanQR} backTitle="后退"  hideTabBar/>
+                            <Scene key='weather' title='天气' component={Weather} backTitle="后退"  hideTabBar/>
                         </Scene>
                         <Scene key="tab5" title="地图" icon={TabIcon} tabIcon="map" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
                             <Scene key='map' title='我在哪?' component={BaiduMap} />

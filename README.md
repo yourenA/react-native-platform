@@ -2,6 +2,8 @@
 >真机调试要把/android/build.gradle中的2.2.3改为1.2.3和把/android/gradle/wrapper/gradle-wrapper.properties中的gradle-2.14.1-all.zip改为gradle-2.2-all.zip
 >电脑调试要把/android/build.gradle中的1.2.3改为2.2.3和把/android/gradle/wrapper/gradle-wrapper.properties中的gradle-2.2-all.zip改为gradle-2.14.1-all.zip
 >更改后重新yarn
+>值得注意的是：我们在开发一个apk发布在应用商店时，需要我们自己的生成的签名文件，这个签名文件和开发环境默认的签名文件肯定是不同的，至少指纹证书SHA1就不同。所以，当我们通过我们自己生成的签名文件导出签名的apk时，百度地图的key应该是我们自己的签名文件中的指纹证书，如果还是用的是debug.keystore的SHA1申请的key,百度地图自然就会有问题。比如，我们导出apk的签名文件名字为myapp.keystore;那么可以通过在命令窗口中输入keytool -list -v -keystore myapp.keystore得到SHA1，然后通过这个SHA1去申请百度key，这样，你导出的签名apk的百度地图功能就不会只显示方格图加载不出来地图的问题了。
+
 
 ```
 import React, { Component } from 'react'; //依赖react
