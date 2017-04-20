@@ -17,10 +17,12 @@ import Home from './tabs/home';
 import Content from './tabs/content';
 import News from './tabs/news/index';
 import Toutiaozhengwen from './tabs/news/toutiaozhengwen';
-import SmartMap from './tabs/smartmap';
+// import SmartMap from './tabs/smartmap';
 import MqttTest from './tabs/tools/MqttTest';
 import ScanQR from './tabs/tools/scanQR';
 import Weather from './tabs/tools/weather';
+import Todolist from './tabs/tools/todolist';
+import Todo from './tabs/tools/todo';
 import BaiduMap from './tabs/map';
 import Tool from './tabs/Tool';
 // import Pic from './tabs/pic';
@@ -97,6 +99,12 @@ export default class Index extends Component {
                             <Scene key='mqtt' title='Mqtt test' component={MqttTest} backTitle="后退"  hideTabBar/>
                             <Scene key='scanQR' title='扫描二维码' component={ScanQR} backTitle="后退"  hideTabBar/>
                             <Scene key='weather' title='天气' component={Weather} backTitle="后退"  hideTabBar/>
+                            <Scene key='todolist' title='记事本'  onRight={()=>Actions.todo({})} rightTitle="添加"
+                                   component={Todolist} backTitle="后退"  hideTabBar
+                                   duration={0}/>
+                            <Scene key='todo'  component={Todo}
+                                   duration={0}
+                                   hideNavBar  hideTabBar/>
                         </Scene>
                         <Scene key="tab5" title="地图" icon={TabIcon} tabIcon="map" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
                             <Scene key='map' title='我在哪?' component={BaiduMap} />

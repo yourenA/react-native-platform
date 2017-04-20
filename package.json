@@ -9,12 +9,14 @@
   "dependencies": {
     "axios": "^0.16.1",
     "ele-react-native-location": "^0.2.2",
+    "moment": "^2.18.1",
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.3",
     "react-native-baidu-map": "^0.6.0",
     "react-native-camera": "0.6",
     "react-native-gps": "https://github.com/agrass/react-native-gps",
     "react-native-location": "^0.27.0",
+    "react-native-pull": "latest",
     "react-native-qrcode": "^0.2.3",
     "react-native-root-toast": "^1.0.5",
     "react-native-router-flux": "^3.38.0",
@@ -30,7 +32,8 @@
     "react_native_mqtt": "^1.1.4",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "uuid-js": "^0.7.5"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",

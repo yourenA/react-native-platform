@@ -28,12 +28,18 @@ exports.convertWeekday = (num) => {
             return null
     }
 };
-
-exports.convertCodeToImage = (code) => {
-    return `http://appimg.showapi.com/images/weather/icon/day/${code}.png`
-}
-
-exports.convertTime = (string) => {
+const convertTime = (string) => {
     let result=string.slice(8,10)
     return `${result}时`
 }
+exports.convertTime=convertTime;
+
+exports.convertCodeToImage = (time,code) => {
+    let changetime=convertTime(time).slice(0,2);
+    if(Number(changetime)>18 || Number(changetime)<6){
+        return `http://appimg.showapi.com/images/weather/icon/night/${code}.png`
+    }else{
+        return `http://appimg.showapi.com/images/weather/icon/day/${code}.png`
+    }
+}
+

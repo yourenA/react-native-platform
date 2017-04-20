@@ -8,7 +8,7 @@ import {
     StyleSheet,
     Platform,
     ListView,
-    TouchableNativeFeedback,
+    TouchableWithoutFeedback,
     Dimensions,
     TouchableOpacity
 } from 'react-native'
@@ -23,7 +23,7 @@ export default class RightBottomBtn extends Component {
     }
     render() {
         return (
-            <TouchableOpacity
+            <TouchableWithoutFeedback
                 onPress={()=>this.props.onPress()} >
                 <View style={styles.row}>
                     <View style={styles.leftIcon}>
@@ -33,10 +33,10 @@ export default class RightBottomBtn extends Component {
                         {this.props.itemText}
                     </Text>
                     <View style={styles.rightIcon}>
-                        <Icon name='arrow-right' size={25} color='#999'/>
+                        <Icon name='arrow-right' size={18} color='#bbb'/>
                     </View>
                 </View>
-            </TouchableOpacity>
+            </TouchableWithoutFeedback>
         );
     }
 }
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: deviceWidth,
         height: 60,
-        borderBottomColor: '#cccccc',
+        borderBottomColor: '#ddd',
         padding: 5,
         borderBottomWidth: 1
 
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     },
     rightIcon: {
         position: 'absolute',
-        right: 0
+        right: 10
     }
 });
 
