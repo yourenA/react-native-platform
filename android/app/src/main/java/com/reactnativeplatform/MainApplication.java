@@ -15,6 +15,7 @@ import com.facebook.soloader.SoLoader;
 //import com.reactnativecomponent.amaplocation.RCTAMapLocationPackage;    //import package
 //import com.reactnativecomponent.amap.RCTAMapPackage;
 import org.lovebing.reactnative.baidumap.BaiduMapPackage;
+import com.reactnative.photoview.PhotoViewPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +38,8 @@ public class MainApplication extends Application implements ReactApplication {
           //new AMapLocationReactPackage(),
           //new RCTAMapLocationPackage(),  //register Module
           //new RCTAMapPackage(),  //register Module
-          new BaiduMapPackage(getApplicationContext())
+          new BaiduMapPackage(getApplicationContext()),
+          new PhotoViewPackage() // add this manager
       );
     }
   };

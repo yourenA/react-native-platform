@@ -39,6 +39,7 @@ export default class Tool extends Component {
                 }}>
                     <ToolItem onPress={() => Actions.mqtt({})} itemText='Mqtt test' leftIcon="settings-box"/>
                     <ToolItem onPress={() => Actions.scanQR({})} itemText='扫描二维码' leftIcon="barcode-scan"/>
+                    <ToolItem onPress={() => Actions.map({})} itemText='地图' leftIcon="web"/>
                     <ToolItem onPress={() => Actions.weather({})} itemText='天气' leftIcon="weather-cloudy"/>
                     <ToolItem onPress={() => Actions.todolist({})} itemText='记事本' leftIcon="book-multiple"/>
                 </ScrollView>

@@ -20,6 +20,7 @@ import {
     Linking,
     ScrollView,
     Image,
+    Alert
 } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
 import {Actions} from 'react-native-router-flux'
@@ -32,6 +33,7 @@ export default class Todo extends Component {
         super();
         this.rightNewBtnPress=this.rightNewBtnPress.bind(this);
         this.rightEditBtnPress=this.rightEditBtnPress.bind(this);
+        this.complete=this.complete.bind(this);
         this.state = {
             content: '',
             height: 0,
@@ -66,21 +68,27 @@ export default class Todo extends Component {
         Actions.pop()
     }
     async rightNewBtnPress(){
-        let saveDate={
-            title:this.state.title,
-            content:this.state.content,
-            date:moment().format("YYYY-MM-DD HH:mm:ss"),
-            isDone:this.state.isDone,
-            id: UUID.create().hex
-        };
-        let todolistDate=await AsyncStorage.getItem('todoListDate');
-        todolistDate=JSON.parse(todolistDate)
-        if(!Array.isArray(todolistDate)){
-            todolistDate=[]
+        if(this.state.title.length===0||this.state.content.length===0){
+            Alert.alert('标题和内容不能为空');
+            return false
+        }else{
+            let saveDate={
+                title:this.state.title,
+                content:this.state.content,
+                date:moment().format("YYYY-MM-DD HH:mm:ss"),
+                isDone:this.state.isDone,
+                id: UUID.create().hex
+            };
+            let todolistDate=await AsyncStorage.getItem('todoListDate');
+            todolistDate=JSON.parse(todolistDate)
+            if(!Array.isArray(todolistDate)){
+                todolistDate=[]
+            }
+            todolistDate.unshift(saveDate);
+            AsyncStorage.setItem('todoListDate', JSON.stringify(todolistDate));
+            Actions.pop({ refresh: { test: true }})
         }
-        todolistDate.unshift(saveDate);
-        AsyncStorage.setItem('todoListDate', JSON.stringify(todolistDate));
-        Actions.pop({ refresh: { test: true }})
+
     }
     async rightEditBtnPress(){
         let todolistEditDate=await AsyncStorage.getItem('todoListDate');
@@ -97,7 +105,22 @@ export default class Todo extends Component {
         }
         Actions.pop({ refresh: { test: true }})
     }
+    async complete(){
+        let todolistEditDate=await AsyncStorage.getItem('todoListDate');
+        todolistEditDate=JSON.parse(todolistEditDate);
+        console.log("todolistEditDate",todolistEditDate)
+        for(let i=0;i<todolistEditDate.length;i++){
+            if(todolistEditDate[i].id===this.props.id){
+                todolistEditDate[i].isDone=true
+                todolistEditDate[i].date=moment().format("YYYY-MM-DD HH:mm:ss")
+                AsyncStorage.setItem('todoListDate', JSON.stringify(todolistEditDate));
+                break
+            }
+        }
+        Actions.pop({ refresh: { test: true }})
+    }
     render() {
+        let that=this;
         return (
             <View tyle={styles.container}>
                 <NavBar rightBtnPress={this.props.title ?this.rightEditBtnPress:this.rightNewBtnPress} leftBtnPress={this.leftBtnPress} navbar_text={this.props.title || '新建'} left_text='后退' right_text='确认'/>
@@ -113,13 +136,23 @@ export default class Todo extends Component {
                                 标题:
                             </Text>
                             <TextInput
+                                editable={!this.props.isDone}
                                 placeholder="标题..."
                                 style={styles.title_input}
                                 onChangeText={this.changeTitle}
                                 value={this.state.title}
                             />
+                            {
+                                that.props.isDone?<Image style={styles.doneImage} source={require('./../../img/done.png')} />: <Button
+                                    onPress={that.complete}
+                                    title="完成该事件"
+                                    color="#841584"
+                                />
+                            }
+
                         </View>
                         <TextInput
+                            editable={!this.props.isDone}
                             placeholder="内容..."
                             multiline={true}
                             onChange={this.changeContent}
@@ -158,7 +191,7 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     title_input: {
-        width: deviceWidth - 80,
+        width: deviceWidth - 150,
         paddingRight: 5,
         paddingLeft: 5
     },
@@ -174,5 +207,5 @@ const styles = StyleSheet.create({
         paddingTop: 0,
         paddingBottom: 0,
         textAlignVertical: 'top'
-    }
+    },
 });

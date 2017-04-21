@@ -3029,6 +3029,10 @@ react-native-location:
   version "0.27.0"
   resolved "http://registry.npm.taobao.org/react-native-location/download/react-native-location-0.27.0.tgz#8e920a7bfbd4b55833028f2dad65edc12449d6f5"
 
+react-native-photo-view@1.2.0:
+  version "1.2.0"
+  resolved "http://registry.npm.taobao.org/react-native-photo-view/download/react-native-photo-view-1.2.0.tgz#d379d368b1a13f272f9672af2b0ce5c96fa15409"
+
 react-native-pull@latest:
   version "2.0.2"
   resolved "http://registry.npm.taobao.org/react-native-pull/download/react-native-pull-2.0.2.tgz#15264a737bcf56debd4bacaa2705254d9ef1b345"
@@ -3081,6 +3085,10 @@ react-native-splash-screen:
 react-native-storage@^0.1.2, react-native-storage@^0.1.5:
   version "0.1.5"
   resolved "http://registry.npm.taobao.org/react-native-storage/download/react-native-storage-0.1.5.tgz#91d77560e41cc9e62d587b55a21b3d6ebaba5599"
+
+react-native-swiper:
+  version "1.5.4"
+  resolved "http://registry.npm.taobao.org/react-native-swiper/download/react-native-swiper-1.5.4.tgz#a85535b5374ef8d605a7a720e447ac46816ac448"
 
 react-native-tabs@^1.0.9:
   version "1.0.9"

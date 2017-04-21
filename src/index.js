@@ -23,9 +23,10 @@ import ScanQR from './tabs/tools/scanQR';
 import Weather from './tabs/tools/weather';
 import Todolist from './tabs/tools/todolist';
 import Todo from './tabs/tools/todo';
-import BaiduMap from './tabs/map';
+import BaiduMap from './tabs/tools/map';
 import Tool from './tabs/Tool';
-// import Pic from './tabs/pic';
+import Image from './tabs/images';
+import ShowImage from './tabs/showImage';
 // import Count from './tabs/count';
 // import SmartLocation from './tabs/smartMapLocation';
 // import Location from './tabs/location';
@@ -94,7 +95,12 @@ export default class Index extends Component {
                             <Scene key="ooxx" component={News} title="新闻" />
                             <Scene key="toutiaozhengwen" component={Toutiaozhengwen} title="新闻内容"  backTitle="后退" hideTabBar/>
                         </Scene>
-                        <Scene key="tab3" initial title="工具" icon={TabIcon} tabIcon="book" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
+                        <Scene key="tab5" initial title="摄影" icon={TabIcon} tabIcon="photo" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
+                            <Scene key='image' title='画廊' component={Image} backTitle="后退"   />
+                            <Scene key='showbigimage' title='画廊' component={ShowImage} backTitle="后退"  hideTabBar/>
+
+                        </Scene>
+                        <Scene key="tab3"  title="工具" icon={TabIcon} tabIcon="book" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
                             <Scene key='tool' title='工具' component={Tool} />
                             <Scene key='mqtt' title='Mqtt test' component={MqttTest} backTitle="后退"  hideTabBar/>
                             <Scene key='scanQR' title='扫描二维码' component={ScanQR} backTitle="后退"  hideTabBar/>
@@ -105,10 +111,10 @@ export default class Index extends Component {
                             <Scene key='todo'  component={Todo}
                                    duration={0}
                                    hideNavBar  hideTabBar/>
+                            <Scene key='map' title='我在哪?' component={BaiduMap} backTitle="后退"   />
+
                         </Scene>
-                        <Scene key="tab5" title="地图" icon={TabIcon} tabIcon="map" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
-                            <Scene key='map' title='我在哪?' component={BaiduMap} />
-                        </Scene>
+
                     </Scene>
                 </Scene>
             </Router>

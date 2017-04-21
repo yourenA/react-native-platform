@@ -47,17 +47,27 @@ export default class Todolist extends Component {
     }
     deleteTodo=(id)=>{
         console.log(id);
-        for(let i=0;i<this.state.todolist.length;i++){
-            if(this.state.todolist[i].id===id){
-                this.state.todolist.splice(i,1);
-                this.setState({
-                    todolist:this.state.todolist
-                });
-                AsyncStorage.setItem('todoListDate', JSON.stringify(this.state.todolist));
-                break
-            }
+        Alert.alert(
+            '提示',
+            '确定要删除吗？',
+            [
+                {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: '确定', onPress: () => {
+                    for(let i=0;i<this.state.todolist.length;i++){
+                        if(this.state.todolist[i].id===id){
+                            this.state.todolist.splice(i,1);
+                            this.setState({
+                                todolist:this.state.todolist
+                            });
+                            AsyncStorage.setItem('todoListDate', JSON.stringify(this.state.todolist));
+                            break
+                        }
 
-        }
+                    }
+                }},
+            ]
+        )
+
     }
     async componentWillReceiveProps(){
         let todoListDate=await AsyncStorage.getItem('todoListDate');
@@ -94,7 +104,6 @@ export default class Todolist extends Component {
                                                 onPress={that.deleteTodo.bind(this,item.id)}
                                                 title="删除"
                                                 color="#841584"
-                                                accessibilityLabel="Learn more about this purple button"
                                             />
                                         </View>
                                     </View>
@@ -143,6 +152,6 @@ const styles = StyleSheet.create({
         height:30,
         marginRight:5,
         position:'absolute',
-        left:300
+        left:250
     }
 });
