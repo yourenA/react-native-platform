@@ -20,6 +20,8 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux'
 import ToolItem from './../components/toolItem'
+import NavBar from './../components/NavBar'
+
 export default class Tool extends Component {
 
     constructor() {
@@ -34,6 +36,8 @@ export default class Tool extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <NavBar navbar_text='千百度' left_text='后退' right_text='确认'/>
+
                 <ScrollView ref={(scrollView) => {
                     this._scrollView = scrollView;
                 }}>
@@ -50,7 +54,6 @@ export default class Tool extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Platform.OS === 'ios' ? 60 : 54,
         paddingBottom: 50
     },
 });

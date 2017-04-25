@@ -21,26 +21,39 @@ export default class RightBottomBtn extends Component {
     render() {
         return (
             <View style={styles.navbar}>
-                <TouchableOpacity  onPress={this.props.leftBtnPress}>
-                <View style={styles.leftIcon}>
-                    <MateIcon name='chevron-thin-left' size={20} color='#000'/>
-                    <Text style={styles.left_text}>
-                        {this.props.left_text}
-                    </Text>
-                </View>
-                </TouchableOpacity>
-                <Text style={styles.navbar_text}
+
+                    {
+                        this.props.showLeftBtn ? <TouchableOpacity  onPress={this.props.leftBtnPress}>
+                            <View style={styles.leftIcon}>
+                                <MateIcon name='chevron-thin-left' size={20} color='#000'/>
+                                <Text style={styles.left_text}>
+                                    {this.props.left_text}
+                                </Text>
+                            </View>
+                        </TouchableOpacity>:null
+                    }
+
+                <Text style={ {
+                    fontSize: 18,
+                    width:this.props.showLeftBtn ? deviceWidth-150:deviceWidth,
+                    textAlign:'center',
+                    fontWeight:'bold',
+                    color:'#000'
+                }}
                       numberOfLines={1}>
                     {this.props.navbar_text}
                 </Text>
-                <TouchableOpacity  onPress={this.props.rightBtnPress}>
+                {
+                    this.props.showrightBtn? <TouchableOpacity  onPress={this.props.rightBtnPress}>
 
-                <View style={styles.rightIcon}>
-                    <Text style={styles.right_text}>
-                        {this.props.right_text}
-                    </Text>
-                </View>
-                </TouchableOpacity>
+                        <View style={styles.rightIcon}>
+                            <Text style={styles.right_text}>
+                                {this.props.right_text}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>:null
+                }
+
 
             </View>
         );
@@ -54,25 +67,18 @@ const styles = StyleSheet.create({
         height: Platform.OS === 'ios' ? 60 : 54,
         backgroundColor:'#ffdb42',
         flexDirection: 'row',
-        justifyContent: 'space-between',
         alignItems:'center',
         padding:5,
         borderBottomWidth:1,
         borderColor:'#999'
     },
-    navbar_text: {
-        fontSize: 18,
-        width:deviceWidth-200,
-        textAlign:'center',
-        fontWeight:'bold',
-        color:'#000'
-    },
     leftIcon:{
+        width:75,
         flexDirection: 'row',
         alignItems:'center',
     },
     rightIcon:{
-
+        width:75,
     },
     left_text: {
         width:50,

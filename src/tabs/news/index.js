@@ -6,13 +6,14 @@ import {
     ScrollView,
     Platform,
 } from 'react-native';
-
+import NavBar from './../../components/NavBar'
 import ScrollableTabView, {DefaultTabBar, } from 'react-native-scrollable-tab-view';
 import Toutiao from './toutiao'
 export default React.createClass({
     render() {
         return(
             <View style={styles.container}>
+                <NavBar   navbar_text='新闻知多少'/>
                 <ScrollableTabView
                     tabBarActiveTextColor="#ffdb42"
                     tabBarUnderlineStyle={styles.underline}
@@ -52,7 +53,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F5FCFF',
-        paddingTop: Platform.OS === 'ios' ? 60 : 54,
         paddingBottom: 50
     },
     underline:{

@@ -9,6 +9,8 @@ import {
     StyleSheet,
     Platform
 } from 'react-native'
+import {Actions} from 'react-native-router-flux'
+import NavBar from './../../components/NavBar'
 
 export default class Content extends Component {
     constructor() {
@@ -28,6 +30,7 @@ export default class Content extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <NavBar showLeftBtn={true} leftBtnPress={()=>Actions.pop()} navbar_text='新闻' left_text='后退' right_text='确认'/>
                 <WebView
                     style={{flex:1}}
                     source={{html: this.state.html}}
@@ -42,6 +45,5 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F5FCFF',
-        paddingTop: Platform.OS === 'ios' ? 60 : 54,
     },
 })

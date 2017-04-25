@@ -24,6 +24,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
 import {Actions} from 'react-native-router-flux'
+import NavBar from './../../components/NavBar'
 
 export default class Todolist extends Component {
 
@@ -81,6 +82,7 @@ export default class Todolist extends Component {
         let that=this
         return (
             <View style={styles.container}>
+                <NavBar showLeftBtn={true}  showrightBtn={true} rightBtnPress={()=>{Actions.todo({})}} leftBtnPress={()=>{Actions.pop()}} navbar_text= '记事本' left_text='后退' right_text='新建'/>
                 <ScrollView>
                     {this.state.todolist.map(function (item,index) {
                         return(
@@ -122,7 +124,6 @@ let deviceWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Platform.OS === 'ios' ? 60 : 54,
     },
     row:{
         width:deviceWidth,

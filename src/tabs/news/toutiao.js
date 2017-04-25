@@ -18,6 +18,9 @@ import {connect} from 'react-redux';
 import LoadingSpinner from '../../components/loadingSpinner'
 import NewsItem from '../../components/newsItem'
 import RightBottomBtn from './../../components/rightBottomBtn'
+import {Actions} from 'react-native-router-flux'
+
+
 class Toutiao extends Component {
     constructor() {
         super()

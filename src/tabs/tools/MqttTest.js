@@ -21,6 +21,8 @@ import {
     Alert
 } from 'react-native';
 import init from 'react_native_mqtt';
+import {Actions} from 'react-native-router-flux'
+import NavBar from './../../components/NavBar'
 
 let client;
 export default class MqttTest extends Component {
@@ -73,6 +75,7 @@ export default class MqttTest extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <NavBar showLeftBtn={true}  leftBtnPress={()=>Actions.pop()} navbar_text='Mqtt_test' left_text='后退' right_text='确认'/>
             </View>
         );
     }
@@ -85,7 +88,6 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingTop: Platform.OS === 'ios' ? 60 : 54,
         paddingBottom: 50
     },
     map: {

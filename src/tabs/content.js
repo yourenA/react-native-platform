@@ -10,6 +10,8 @@ import {
     Platform
 } from 'react-native'
 import LoadingSpinner from '../components/loadingSpinner'
+import {Actions} from 'react-native-router-flux'
+import NavBar from './../components/NavBar'
 
 export default class Content extends Component {
     constructor() {
@@ -41,6 +43,7 @@ export default class Content extends Component {
                     })
             })
     }
+
     render() {
         /**
          * WebView source可以插进style和html代码
@@ -48,6 +51,7 @@ export default class Content extends Component {
         if ( !this.timer ) return <LoadingSpinner animating={true}/>
         return (
             <View style={styles.container}>
+                <NavBar showLeftBtn={true}  leftBtnPress={()=>Actions.pop()} navbar_text='知乎' left_text='后退' right_text='确认'/>
                 <WebView
                     style={{flex:1}}
                     source={{html: this.state.html}}
@@ -62,6 +66,5 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F5FCFF',
-        paddingTop: Platform.OS === 'ios' ? 60 : 54,
     },
 })

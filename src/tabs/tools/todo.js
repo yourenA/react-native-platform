@@ -123,7 +123,7 @@ export default class Todo extends Component {
         let that=this;
         return (
             <View tyle={styles.container}>
-                <NavBar rightBtnPress={this.props.title ?this.rightEditBtnPress:this.rightNewBtnPress} leftBtnPress={this.leftBtnPress} navbar_text={this.props.title || '新建'} left_text='后退' right_text='确认'/>
+                <NavBar showLeftBtn={true}  showrightBtn={true} rightBtnPress={this.props.title ?this.rightEditBtnPress:this.rightNewBtnPress} leftBtnPress={this.leftBtnPress} navbar_text={this.props.title || '新建'} left_text='后退' right_text='确认'/>
                 <View>
                     <ScrollView>
                         <View style={styles.date}>

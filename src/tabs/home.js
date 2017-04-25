@@ -22,7 +22,7 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 import LoadingSpinner from '../components/loadingSpinner'
 import { fetchEndPoints } from './../actions/fetchZH';
 import { connect } from 'react-redux';
-
+import NavBar from './../components/NavBar'
 const ListItem = ({data}) => {
     return (
         <TouchableNativeFeedback
@@ -84,6 +84,7 @@ class Home extends Component {
         if (this.props.fetchZH.top_stories.length == 0) return <LoadingSpinner animating={true}/>
         return (
             <View style={styles.container}>
+                <NavBar   navbar_text='你知道吗?'/>
                 <ScrollView>
                     <AutoPlaySwipeableViews
                         ref='swiper'
@@ -113,7 +114,6 @@ let deviceWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Platform.OS === 'ios' ? 60 : 54,
         paddingBottom: 50
     },
     slideContainer: {

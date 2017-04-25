@@ -21,7 +21,9 @@ import {
 } from 'react-native';
 import Swiper from 'react-native-swiper'
 import PhotoView from 'react-native-photo-view'
+import NavBar from './../components/NavBar'
 
+import {Actions} from 'react-native-router-flux'
 
 export default class Content extends Component {
     constructor() {
@@ -39,6 +41,7 @@ export default class Content extends Component {
         console.log("this.props", this.props)
         return (
             <View style={styles.container}>
+                <NavBar showLeftBtn={true} leftBtnPress={()=>Actions.pop()} navbar_text='画廊' left_text='后退' right_text='确认'/>
                 <Swiper index={parseInt(this.props.rowID)} style={styles.wrapper} showsPagination={false}>
                     {
                         this.props.images.map((item, i) => <View key={i} style={styles.slide}>
@@ -74,12 +77,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#000',
         width: width,
         height: height,
-        flex: 1,
+        marginTop:-100
     },
     index: {
         height:30,
         position: 'absolute',
-        bottom: 20,
+        bottom: 70,
     },
     index_text: {
         color: 'white',

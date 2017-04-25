@@ -29,8 +29,10 @@ import axios from 'axios';
 import MateIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import EntypoIcon from 'react-native-vector-icons/Entypo'
 import {PullView} from 'react-native-pull';
+import NavBar from './../../components/NavBar'
 
 import {convertWeekday, convertCodeToImage, convertTime} from './../../util/index';
+import {Actions} from 'react-native-router-flux'
 let weatherCity, now_weather, now_temperature, f1, f2, f3, f4, f5, f6, f7, tigan_temperature, sd, jiangshui, fx, fl, zwx, quality, hours_list, qy;
 export default class Weather extends Component {
 
@@ -266,6 +268,7 @@ export default class Weather extends Component {
         });
         return (
             <View style={styles.container}>
+                <NavBar showLeftBtn={true}  leftBtnPress={()=>Actions.pop()} navbar_text='天气' left_text='后退' right_text='确认'/>
                 <PullView style={{width: Dimensions.get('window').width}} onPullRelease={this.onPullRelease}
                           topIndicatorRender={this.topIndicatorRender} topIndicatorHeight={60}>
                     <ScrollView ref={(scrollView) => {
@@ -394,7 +397,6 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#64A8D1',
         flex: 1,
-        paddingTop: Platform.OS === 'ios' ? 60 : 54,
     },
     line: {
         width: deviceWidth,

@@ -19,6 +19,9 @@ import {
     Dimensions,
     Alert
 } from 'react-native';
+import {Actions} from 'react-native-router-flux'
+import NavBar from './../../components/NavBar'
+
 let locationTimer
 
 export default class BaiduMapDemo extends Component {
@@ -98,6 +101,7 @@ export default class BaiduMapDemo extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <NavBar showLeftBtn={true}   leftBtnPress={()=>Actions.pop()} navbar_text='百度地图' left_text='后退' right_text='确认'/>
                 <MapView
                     trafficEnabled={this.state.trafficEnabled}
                     baiduHeatMapEnabled={this.state.baiduHeatMapEnabled}

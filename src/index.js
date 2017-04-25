@@ -48,7 +48,9 @@ export default class Index extends Component {
         /**
          * 挂载完成后隐藏启动屏
          * */
-        SplashScreen.hide()
+        setTimeout(function () {
+            SplashScreen.hide()
+        },1000)
     }
     _backAndroidHandler=()=>{
         //通过Platform.OS 获取平台操作系统
@@ -88,30 +90,30 @@ export default class Index extends Component {
                 <Scene key="root" hideNavBar>
                     <Scene key="tabbar" tabs tabBarStyle={{backgroundColor: '#FFF', borderTopWidth: 1, borderTopColor: '#BBB'}}>
                         <Scene key="tab1"  title="知乎" icon={TabIcon} tabIcon="home" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
-                            <Scene key='article'  component={Home} title='你知道吗?' />
-                            <Scene key="content" component={Content} title="内容页" backTitle="后退" hideTabBar/>
+                            <Scene key='article'  component={Home} hideNavBar   duration={0}/>
+                            <Scene key="content" component={Content}   duration={0} hideNavBar hideTabBar/>
                         </Scene>
                         <Scene key="tab2"  title="新闻" icon={TabIcon} tabIcon="circle-o" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
-                            <Scene key="ooxx" component={News} title="新闻" />
-                            <Scene key="toutiaozhengwen" component={Toutiaozhengwen} title="新闻内容"  backTitle="后退" hideTabBar/>
+                            <Scene key="ooxx" component={News}  duration={0} hideNavBar />
+                            <Scene key="toutiaozhengwen" component={Toutiaozhengwen}  duration={0} hideNavBar hideTabBar/>
                         </Scene>
                         <Scene key="tab5" initial title="摄影" icon={TabIcon} tabIcon="photo" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
-                            <Scene key='image' title='画廊' component={Image} backTitle="后退"   />
-                            <Scene key='showbigimage' title='画廊' component={ShowImage} backTitle="后退"  hideTabBar/>
+                            <Scene key='image' title='画廊'  duration={0} component={Image} hideNavBar  />
+                            <Scene key='showbigimage' title='画廊'  duration={0} component={ShowImage} hideNavBar  hideTabBar/>
 
                         </Scene>
-                        <Scene key="tab3"  title="工具" icon={TabIcon} tabIcon="book" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
-                            <Scene key='tool' title='工具' component={Tool} />
-                            <Scene key='mqtt' title='Mqtt test' component={MqttTest} backTitle="后退"  hideTabBar/>
-                            <Scene key='scanQR' title='扫描二维码' component={ScanQR} backTitle="后退"  hideTabBar/>
-                            <Scene key='weather' title='天气' component={Weather} backTitle="后退"  hideTabBar/>
-                            <Scene key='todolist' title='记事本'  onRight={()=>Actions.todo({})} rightTitle="添加"
+                        <Scene key="tab3"  title="千百度" icon={TabIcon} tabIcon="book" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
+                            <Scene key='tool' title='工具'  duration={0} component={Tool} hideNavBar />
+                            <Scene key='mqtt' title='Mqtt test'  duration={0} component={MqttTest} hideNavBar  hideTabBar/>
+                            <Scene key='scanQR' title='扫描二维码'  duration={0} component={ScanQR} hideNavBar  hideTabBar/>
+                            <Scene key='weather' title='天气'  duration={0} component={Weather} hideNavBar  hideTabBar/>
+                            <Scene key='todolist' title='记事本'   hideNavBar
                                    component={Todolist} backTitle="后退"  hideTabBar
                                    duration={0}/>
                             <Scene key='todo'  component={Todo}
                                    duration={0}
                                    hideNavBar  hideTabBar/>
-                            <Scene key='map' title='我在哪?' component={BaiduMap} backTitle="后退"   />
+                            <Scene key='map' title='我在哪?' component={BaiduMap} hideNavBar  hideTabBar/>
 
                         </Scene>
 
