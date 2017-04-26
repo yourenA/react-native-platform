@@ -16,25 +16,18 @@ export default class Content extends Component {
     constructor() {
         super()
         this.state = {
-            html: ''
         }
     }
     componentDidMount=()=> {
-        let css='img{ margin:0 auto;margin-left:20%}';
-        let cssLink = '<style>'+css+'</style>'
-        console.log(cssLink+this.props.content)
-            this.setState({
-            html:`${cssLink}<div>${this.props.content}</div>`
-        })
     }
     render() {
         return (
             <View style={styles.container}>
-                <NavBar showLeftBtn={true}  leftBtnPress={()=>Actions.pop()} navbar_text='新闻' left_text='后退' right_text='确认'/>
+                <NavBar showLeftBtn={true}  leftBtnPress={()=>Actions.pop()} navbar_text='微信精选文章' left_text='后退' right_text=''/>
                 <WebView
                     style={{flex:1}}
-                    source={{html: this.state.html}}
-                    javaScriptEnabled={false}
+                    source={{uri: this.props.wxUrl}}
+                    javaScriptEnabled={true}
                 />
             </View>
         );

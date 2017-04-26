@@ -3037,6 +3037,10 @@ react-native-pull@latest:
   version "2.0.2"
   resolved "http://registry.npm.taobao.org/react-native-pull/download/react-native-pull-2.0.2.tgz#15264a737bcf56debd4bacaa2705254d9ef1b345"
 
+react-native-pullrefresh-scrollview:
+  version "1.1.1"
+  resolved "http://registry.npm.taobao.org/react-native-pullrefresh-scrollview/download/react-native-pullrefresh-scrollview-1.1.1.tgz#e4d8937bf820a41562789da0f917c92043824aba"
+
 react-native-qrcode:
   version "0.2.3"
   resolved "http://registry.npm.taobao.org/react-native-qrcode/download/react-native-qrcode-0.2.3.tgz#cce06c5a8509c1f55a18d79053ace6fa0cedb376"
@@ -3089,6 +3093,10 @@ react-native-storage@^0.1.2, react-native-storage@^0.1.5:
 react-native-swiper:
   version "1.5.4"
   resolved "http://registry.npm.taobao.org/react-native-swiper/download/react-native-swiper-1.5.4.tgz#a85535b5374ef8d605a7a720e447ac46816ac448"
+
+react-native-swRefresh:
+  version "1.2.3"
+  resolved "http://registry.npm.taobao.org/react-native-swRefresh/download/react-native-swRefresh-1.2.3.tgz#84fa925cc13322812251c023f331dbfd5c03095a"
 
 react-native-tabs@^1.0.9:
   version "1.0.9"

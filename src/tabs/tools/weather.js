@@ -28,7 +28,12 @@ import {Geolocation} from 'react-native-baidu-map';
 import axios from 'axios';
 import MateIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import EntypoIcon from 'react-native-vector-icons/Entypo'
-import {PullView} from 'react-native-pull';
+import {
+    SwRefreshScrollView, //支持下拉刷新的ScrollView
+    SwRefreshListView, //支持下拉刷新和上拉加载的ListView
+    RefreshStatus, //刷新状态 用于自定义下拉刷新视图时使用
+    LoadMoreStatus //上拉加载状态 用于自定义上拉加载视图时使用
+} from 'react-native-swRefresh'
 import NavBar from './../../components/NavBar'
 
 import {convertWeekday, convertCodeToImage, convertTime} from './../../util/index';
@@ -38,7 +43,7 @@ export default class Weather extends Component {
 
     constructor() {
         super();
-        this.onPullRelease=this.onPullRelease.bind(this)
+        this.onPullRelease = this.onPullRelease.bind(this)
         AsyncStorage.getItem('weatherCity').then((data)=> {
             weatherCity = data
         });
@@ -118,7 +123,7 @@ export default class Weather extends Component {
             qy: qy || null,
             quality: quality || null,
             hours_list: hours_list || [],
-            loaded:false
+            loaded: false
         };
     }
 
@@ -140,8 +145,9 @@ export default class Weather extends Component {
                 console.log(e, 'error');
             })
     }
-     getWeather=(area)=>{
-         console.log('area',area)
+
+    getWeather = (area)=> {
+        console.log('area', area)
         let that = this
         axios({
             url: 'http://saweather.market.alicloudapi.com/hour24',
@@ -208,7 +214,7 @@ export default class Weather extends Component {
                 zwx: SevenDate.f1.ziwaixian,
                 qy: SevenDate.f1.air_press,
                 quality: SevenDate.now.aqiDetail.quality,
-                loaded:true
+                loaded: true
             })
 
         }).catch(e => {
@@ -216,15 +222,16 @@ export default class Weather extends Component {
 
         });
     }
-    async onPullRelease(resolve){
-        let that=this;
+
+    async onPullRelease(resolve) {
+        let that = this;
         await that.getWeather(that.state.localCity);
         console.log('刷新');
         resolve();
 
     }
 
-    topIndicatorRender=(pulling, pullok, pullrelease)=> {
+    topIndicatorRender = (pulling, pullok, pullrelease)=> {
         const hide = {position: 'absolute', left: 10000};
         const show = {position: 'relative', left: 0};
         setTimeout(() => {
@@ -244,14 +251,27 @@ export default class Weather extends Component {
         }, 1);
         return (
             <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: 60}}>
-                <ActivityIndicator size="small" color="white" />
-                <Text style={{color:'white'}} ref={(c) => {this.txtPulling = c;}}>下拉刷新</Text>
-                <Text style={{color:'white'}} ref={(c) => {this.txtPullok = c;}}>松开刷新</Text>
-                <Text style={{color:'white'}} ref={(c) => {this.txtPullrelease = c;}}>刷新中</Text>
+                <ActivityIndicator size="small" color="white"/>
+                <Text style={{color: 'white'}} ref={(c) => {
+                    this.txtPulling = c;
+                }}>下拉刷新</Text>
+                <Text style={{color: 'white'}} ref={(c) => {
+                    this.txtPullok = c;
+                }}>松开刷新</Text>
+                <Text style={{color: 'white'}} ref={(c) => {
+                    this.txtPullrelease = c;
+                }}>刷新中</Text>
             </View>
         );
     }
+    _onRefresh(end){
+        let timer =  setTimeout(()=>{
+            this.getWeather(this.state.localCity);
+            clearTimeout(timer)
+            end()//刷新成功后需要调用end结束刷新
 
+        },1500)
+    }
     render() {
 
         const hours_list = this.state.hours_list.map((hourElem, hourIndex) => {
@@ -268,126 +288,126 @@ export default class Weather extends Component {
         });
         return (
             <View style={styles.container}>
-                <NavBar showLeftBtn={true}  leftBtnPress={()=>Actions.pop()} navbar_text='天气' left_text='后退' right_text='确认'/>
-                <PullView style={{width: Dimensions.get('window').width}} onPullRelease={this.onPullRelease}
-                          topIndicatorRender={this.topIndicatorRender} topIndicatorHeight={60}>
-                    <ScrollView ref={(scrollView) => {
-                        this._scrollView = scrollView;
-                    }}>
-                        <View style={styles.weatherTop}>
-                            <Text style={styles.weatherCity}>{this.state.weatherCity}</Text>
-                            <Text style={styles.now_weather}>{this.state.now_weather}</Text>
-                            <Text style={styles.now_temperature}>{this.state.now_temperature}°</Text>
-                        </View>
-                        <View style={styles.f}>
-                            <Text style={styles.f_text}>{convertWeekday(this.state.f1.weekday)} 今天</Text>
-                            <Text
-                                style={styles.f_text}>{`${this.state.f1.night_air_temperature || 0}°   ${this.state.f1.day_air_temperature || 0}°`}</Text>
-                        </View>
-                        <View style={styles.line}></View>
-                        <ScrollView style={styles.hour_list} horizontal={true} showsHorizontalScrollIndicator={false}>
-                            {hours_list}
-                        </ScrollView>
-                        <View style={styles.line}></View>
+                <NavBar showLeftBtn={true} leftBtnPress={()=>Actions.pop()} navbar_text='天气' left_text='后退'
+                        right_text='确认'/>
 
-                        <View style={styles.f}>
-                            <Text style={styles.f_text}>{convertWeekday(this.state.f2.weekday)}</Text>
-                            <Image
-                                style={styles.f_image}
-                                source={{uri: this.state.f2.day_weather_pic}}
-                            />
-                            <Text
-                                style={styles.f_text}>{`${this.state.f2.night_air_temperature || 0}°   ${this.state.f2.day_air_temperature || 0}°`}</Text>
-                        </View>
-                        <View style={styles.f}>
-                            <Text style={styles.f_text}>{convertWeekday(this.state.f3.weekday)}</Text>
-                            <Image
-                                style={styles.f_image}
-                                source={{uri: this.state.f3.day_weather_pic}}
-                            />
-                            <Text
-                                style={styles.f_text}>{`${this.state.f3.night_air_temperature || 0}°   ${this.state.f3.day_air_temperature || 0}°`}</Text>
-                        </View>
-                        <View style={styles.f}>
-                            <Text style={styles.f_text}>{convertWeekday(this.state.f4.weekday)}</Text>
-                            <Image
-                                style={styles.f_image}
-                                source={{uri: this.state.f4.day_weather_pic}}
-                            />
-                            <Text
-                                style={styles.f_text}>{`${this.state.f4.night_air_temperature || 0}°   ${this.state.f4.day_air_temperature || 0}°`}</Text>
-                        </View>
-                        <View style={styles.f}>
-                            <Text style={styles.f_text}>{convertWeekday(this.state.f5.weekday)}</Text>
-                            <Image
-                                style={styles.f_image}
-                                source={{uri: this.state.f5.day_weather_pic}}
-                            />
-                            <Text
-                                style={styles.f_text}>{`${this.state.f5.night_air_temperature || 0}°   ${this.state.f5.day_air_temperature || 0}°`}</Text>
-                        </View>
-                        <View style={styles.f}>
-                            <Text style={styles.f_text}>{convertWeekday(this.state.f6.weekday)}</Text>
-                            <Image
-                                style={styles.f_image}
-                                source={{uri: this.state.f6.day_weather_pic}}
-                            />
-                            <Text
-                                style={styles.f_text}>{`${this.state.f6.night_air_temperature || 0}°   ${this.state.f6.day_air_temperature || 0}°`}</Text>
-                        </View>
-                        <View style={styles.f}>
-                            <Text style={styles.f_text}>{convertWeekday(this.state.f7.weekday)}</Text>
-                            <Image
-                                style={styles.f_image}
-                                source={{uri: this.state.f7.day_weather_pic}}
-                            />
-                            <Text
-                                style={styles.f_text}>{`${this.state.f7.night_air_temperature || 0}°   ${this.state.f7.day_air_temperature || 0}°`}</Text>
-                        </View>
-                        <View style={styles.line}></View>
-
-                        <View style={styles.f}>
-                            <View style={styles.f_info}>
-                                <MateIcon name={"oil-temperature"} size={20} color='white'/>
-                                <Text style={styles.info_text}>
-                                    体感温度{ this.state.tigan_temperature}°
-                                </Text>
-                            </View>
-                            <View style={styles.f_info}>
-                                <MateIcon name={"water"} size={20} color='white'/>
-                                <Text style={styles.info_text}>
-                                    湿度{ this.state.sd}
-                                </Text>
-                            </View>
-                            <View style={styles.f_info}>
-                                <MateIcon name={"weather-windy"} size={20} color='white'/>
-                                <Text style={styles.info_text}>
-                                    { this.state.fx + this.state.fl}
-                                </Text>
-                            </View>
-                        </View>
-                        <View style={styles.f}>
-                            <View style={styles.f_info}>
-                                <MateIcon name={"weather-sunny"} size={20} color='white'/>
-                                <Text style={styles.info_text}>
-                                    紫外线{ this.state.zwx}
-                                </Text>
-                            </View>
-                            <View style={styles.f_info}>
-                                <MateIcon name={"chevron-double-down"} size={20} color='white'/>
-                                <Text style={styles.info_text}>
-                                    气压{ this.state.qy}
-                                </Text>
-                            </View>
-                            <View style={styles.f_info}>
-                                <EntypoIcon name={"air"} size={20} color='white'/>
-                                <Text style={styles.info_text}>
-                                    空气质量{ this.state.quality}
-                                </Text>
-                            </View>
-                        </View>
+                <SwRefreshScrollView ref={(scrollView) => {
+                    this._scrollView = scrollView;
+                }}
+                    onRefresh={this._onRefresh.bind(this)}>
+                    <View style={styles.weatherTop}>
+                        <Text style={styles.weatherCity}>{this.state.weatherCity}</Text>
+                        <Text style={styles.now_weather}>{this.state.now_weather}</Text>
+                        <Text style={styles.now_temperature}>{this.state.now_temperature}°</Text>
+                    </View>
+                    <View style={styles.f}>
+                        <Text style={styles.f_text}>{convertWeekday(this.state.f1.weekday)} 今天</Text>
+                        <Text
+                            style={styles.f_text}>{`${this.state.f1.night_air_temperature || 0}°   ${this.state.f1.day_air_temperature || 0}°`}</Text>
+                    </View>
+                    <View style={styles.line}></View>
+                    <ScrollView style={styles.hour_list} horizontal={true} showsHorizontalScrollIndicator={false}>
+                        {hours_list}
                     </ScrollView>
-                </PullView>
+                    <View style={styles.line}></View>
+
+                    <View style={styles.f}>
+                        <Text style={styles.f_text}>{convertWeekday(this.state.f2.weekday)}</Text>
+                        <Image
+                            style={styles.f_image}
+                            source={{uri: this.state.f2.day_weather_pic}}
+                        />
+                        <Text
+                            style={styles.f_text}>{`${this.state.f2.night_air_temperature || 0}°   ${this.state.f2.day_air_temperature || 0}°`}</Text>
+                    </View>
+                    <View style={styles.f}>
+                        <Text style={styles.f_text}>{convertWeekday(this.state.f3.weekday)}</Text>
+                        <Image
+                            style={styles.f_image}
+                            source={{uri: this.state.f3.day_weather_pic}}
+                        />
+                        <Text
+                            style={styles.f_text}>{`${this.state.f3.night_air_temperature || 0}°   ${this.state.f3.day_air_temperature || 0}°`}</Text>
+                    </View>
+                    <View style={styles.f}>
+                        <Text style={styles.f_text}>{convertWeekday(this.state.f4.weekday)}</Text>
+                        <Image
+                            style={styles.f_image}
+                            source={{uri: this.state.f4.day_weather_pic}}
+                        />
+                        <Text
+                            style={styles.f_text}>{`${this.state.f4.night_air_temperature || 0}°   ${this.state.f4.day_air_temperature || 0}°`}</Text>
+                    </View>
+                    <View style={styles.f}>
+                        <Text style={styles.f_text}>{convertWeekday(this.state.f5.weekday)}</Text>
+                        <Image
+                            style={styles.f_image}
+                            source={{uri: this.state.f5.day_weather_pic}}
+                        />
+                        <Text
+                            style={styles.f_text}>{`${this.state.f5.night_air_temperature || 0}°   ${this.state.f5.day_air_temperature || 0}°`}</Text>
+                    </View>
+                    <View style={styles.f}>
+                        <Text style={styles.f_text}>{convertWeekday(this.state.f6.weekday)}</Text>
+                        <Image
+                            style={styles.f_image}
+                            source={{uri: this.state.f6.day_weather_pic}}
+                        />
+                        <Text
+                            style={styles.f_text}>{`${this.state.f6.night_air_temperature || 0}°   ${this.state.f6.day_air_temperature || 0}°`}</Text>
+                    </View>
+                    <View style={styles.f}>
+                        <Text style={styles.f_text}>{convertWeekday(this.state.f7.weekday)}</Text>
+                        <Image
+                            style={styles.f_image}
+                            source={{uri: this.state.f7.day_weather_pic}}
+                        />
+                        <Text
+                            style={styles.f_text}>{`${this.state.f7.night_air_temperature || 0}°   ${this.state.f7.day_air_temperature || 0}°`}</Text>
+                    </View>
+                    <View style={styles.line}></View>
+
+                    <View style={styles.f}>
+                        <View style={styles.f_info}>
+                            <MateIcon name={"oil-temperature"} size={20} color='white'/>
+                            <Text style={styles.info_text}>
+                                体感温度{ this.state.tigan_temperature}°
+                            </Text>
+                        </View>
+                        <View style={styles.f_info}>
+                            <MateIcon name={"water"} size={20} color='white'/>
+                            <Text style={styles.info_text}>
+                                湿度{ this.state.sd}
+                            </Text>
+                        </View>
+                        <View style={styles.f_info}>
+                            <MateIcon name={"weather-windy"} size={20} color='white'/>
+                            <Text style={styles.info_text}>
+                                { this.state.fx + this.state.fl}
+                            </Text>
+                        </View>
+                    </View>
+                    <View style={styles.f}>
+                        <View style={styles.f_info}>
+                            <MateIcon name={"weather-sunny"} size={20} color='white'/>
+                            <Text style={styles.info_text}>
+                                紫外线{ this.state.zwx}
+                            </Text>
+                        </View>
+                        <View style={styles.f_info}>
+                            <MateIcon name={"chevron-double-down"} size={20} color='white'/>
+                            <Text style={styles.info_text}>
+                                气压{ this.state.qy}
+                            </Text>
+                        </View>
+                        <View style={styles.f_info}>
+                            <EntypoIcon name={"air"} size={20} color='white'/>
+                            <Text style={styles.info_text}>
+                                空气质量{ this.state.quality}
+                            </Text>
+                        </View>
+                    </View>
+                </SwRefreshScrollView>
             </View>
         );
     }

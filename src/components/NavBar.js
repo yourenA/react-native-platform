@@ -19,23 +19,26 @@ export default class RightBottomBtn extends Component {
     }
 
     render() {
+
         return (
             <View style={styles.navbar}>
 
-                    {
-                        this.props.showLeftBtn ? <TouchableOpacity  onPress={this.props.leftBtnPress}>
+                    <TouchableOpacity  onPress={this.props.leftBtnPress}>
                             <View style={styles.leftIcon}>
-                                <MateIcon name='chevron-thin-left' size={20} color='#000'/>
-                                <Text style={styles.left_text}>
-                                    {this.props.left_text}
-                                </Text>
+                                {
+                                    this.props.showLeftBtn ? <View  style={styles.leftcontent}>
+                                        <MateIcon name='chevron-thin-left' size={20} color='#000'/>
+                                        <Text style={styles.left_text}>
+                                            {this.props.left_text}
+                                        </Text>
+                                    </View>
+                                    :null}
                             </View>
-                        </TouchableOpacity>:null
-                    }
+                        </TouchableOpacity>
 
                 <Text style={ {
                     fontSize: 18,
-                    width:this.props.showLeftBtn ? deviceWidth-150:deviceWidth,
+                    width:deviceWidth-150,
                     textAlign:'center',
                     fontWeight:'bold',
                     color:'#000'
@@ -74,6 +77,9 @@ const styles = StyleSheet.create({
     },
     leftIcon:{
         width:75,
+
+    },
+    leftcontent:{
         flexDirection: 'row',
         alignItems:'center',
     },
@@ -86,6 +92,7 @@ const styles = StyleSheet.create({
     },
     right_text: {
         width:50,
-        fontSize:18
+        fontSize:18,
+        textAlign:'right'
     }
 });

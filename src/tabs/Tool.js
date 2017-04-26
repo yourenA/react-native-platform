@@ -46,6 +46,7 @@ export default class Tool extends Component {
                     <ToolItem onPress={() => Actions.map({})} itemText='地图' leftIcon="web"/>
                     <ToolItem onPress={() => Actions.weather({})} itemText='天气' leftIcon="weather-cloudy"/>
                     <ToolItem onPress={() => Actions.todolist({})} itemText='记事本' leftIcon="book-multiple"/>
+                    <ToolItem onPress={() => Actions.ooxx({})} itemText='新闻' leftIcon="newspaper"/>
                 </ScrollView>
             </View>
         );

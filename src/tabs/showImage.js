@@ -24,7 +24,22 @@ import PhotoView from 'react-native-photo-view'
 import NavBar from './../components/NavBar'
 
 import {Actions} from 'react-native-router-flux'
-
+const renderPagination = (index, total, context) => {
+    return (
+        <View style={{
+            position: 'absolute',
+            bottom: 80,
+            right: 10
+        }}>
+            <Text style={{ color: 'grey' }}>
+                <Text style={{
+                    color: 'white',
+                    fontSize: 20
+                }}>{index + 1}</Text>/{total}
+            </Text>
+        </View>
+    )
+}
 export default class Content extends Component {
     constructor() {
         super()
@@ -42,7 +57,7 @@ export default class Content extends Component {
         return (
             <View style={styles.container}>
                 <NavBar showLeftBtn={true} leftBtnPress={()=>Actions.pop()} navbar_text='画廊' left_text='后退' right_text='确认'/>
-                <Swiper index={parseInt(this.props.rowID)} style={styles.wrapper} showsPagination={false}>
+                <Swiper index={parseInt(this.props.rowID)} style={styles.wrapper}  renderPagination={renderPagination}>
                     {
                         this.props.images.map((item, i) => <View key={i} style={styles.slide}>
                             <PhotoView
@@ -52,10 +67,6 @@ export default class Content extends Component {
                                 style={styles.photo}>
 
                             </PhotoView>
-                            <View style={styles.index}>
-                                <Text
-                                    style={styles.index_text}>{`${i+1}/${ this.props.images.length}`}</Text>
-                            </View>
                         </View>)
                     }
                 </Swiper>

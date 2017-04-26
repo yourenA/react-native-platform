@@ -17,6 +17,9 @@ import Home from './tabs/home';
 import Content from './tabs/content';
 import News from './tabs/news/index';
 import Toutiaozhengwen from './tabs/news/toutiaozhengwen';
+import Wx from './tabs/wx/index';
+import Sub from './tabs/wx/sub';
+import Wz from './tabs/wx/wz';
 // import SmartMap from './tabs/smartmap';
 import MqttTest from './tabs/tools/MqttTest';
 import ScanQR from './tabs/tools/scanQR';
@@ -35,8 +38,8 @@ class TabIcon extends React.Component {
     render() {
         return (
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                <Icon name={this.props.tabIcon} size={20} color={this.props.selected ? "#FFDB42" : '#BBB'} />
-                <Text style={{color: this.props.selected ? '#FFDB42' : '#BBB', marginTop: 5, fontSize:12}}>{this.props.title}</Text>
+                <Icon name={this.props.tabIcon} size={22} color={this.props.selected ? "#FFDB42" : '#BBB'} />
+                <Text style={{color: this.props.selected ? '#FFDB42' : '#BBB', marginTop: 3, fontSize:12}}>{this.props.title}</Text>
             </View>
 
         )
@@ -93,16 +96,16 @@ export default class Index extends Component {
                             <Scene key='article'  component={Home} hideNavBar   duration={0}/>
                             <Scene key="content" component={Content}   duration={0} hideNavBar hideTabBar/>
                         </Scene>
-                        <Scene key="tab2"  title="新闻" icon={TabIcon} tabIcon="circle-o" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
-                            <Scene key="ooxx" component={News}  duration={0} hideNavBar />
-                            <Scene key="toutiaozhengwen" component={Toutiaozhengwen}  duration={0} hideNavBar hideTabBar/>
+                        <Scene key="tab3" initial title="微信文章" icon={TabIcon} tabIcon="weixin" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
+                            <Scene key="wxwz" component={Wx}  duration={0} hideNavBar />
+                            <Scene key="sub" component={Sub}  duration={0} hideNavBar hideTabBar/>
+                            <Scene key="wz" component={Wz}  duration={0} hideNavBar hideTabBar/>
                         </Scene>
-                        <Scene key="tab5" initial title="摄影" icon={TabIcon} tabIcon="photo" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
+                        <Scene key="tab4"  title="摄影" icon={TabIcon} tabIcon="photo" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
                             <Scene key='image' title='画廊'  duration={0} component={Image} hideNavBar  />
                             <Scene key='showbigimage' title='画廊'  duration={0} component={ShowImage} hideNavBar  hideTabBar/>
-
                         </Scene>
-                        <Scene key="tab3"  title="千百度" icon={TabIcon} tabIcon="book" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
+                        <Scene key="tab5"  title="千百度" icon={TabIcon} tabIcon="book" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
                             <Scene key='tool' title='工具'  duration={0} component={Tool} hideNavBar />
                             <Scene key='mqtt' title='Mqtt test'  duration={0} component={MqttTest} hideNavBar  hideTabBar/>
                             <Scene key='scanQR' title='扫描二维码'  duration={0} component={ScanQR} hideNavBar  hideTabBar/>
@@ -114,7 +117,8 @@ export default class Index extends Component {
                                    duration={0}
                                    hideNavBar  hideTabBar/>
                             <Scene key='map' title='我在哪?' component={BaiduMap} hideNavBar  hideTabBar/>
-
+                            <Scene key="ooxx" component={News}  duration={0} hideNavBar />
+                            <Scene key="toutiaozhengwen" component={Toutiaozhengwen}  duration={0} hideNavBar hideTabBar/>
                         </Scene>
 
                     </Scene>

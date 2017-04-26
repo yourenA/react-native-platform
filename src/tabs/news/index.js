@@ -9,11 +9,15 @@ import {
 import NavBar from './../../components/NavBar'
 import ScrollableTabView, {DefaultTabBar, } from 'react-native-scrollable-tab-view';
 import Toutiao from './toutiao'
+import {Actions} from 'react-native-router-flux'
+
 export default React.createClass({
     render() {
         return(
             <View style={styles.container}>
-                <NavBar   navbar_text='新闻知多少'/>
+                <NavBar showLeftBtn={true} leftBtnPress={()=> {
+                    Actions.pop()
+                }}  left_text='后退' navbar_text='新闻知多少'/>
                 <ScrollableTabView
                     tabBarActiveTextColor="#ffdb42"
                     tabBarUnderlineStyle={styles.underline}
@@ -53,7 +57,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F5FCFF',
-        paddingBottom: 50
     },
     underline:{
         backgroundColor:'#ffdb42'

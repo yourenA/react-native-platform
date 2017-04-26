@@ -51,7 +51,7 @@ export default class Content extends Component {
         if ( !this.timer ) return <LoadingSpinner animating={true}/>
         return (
             <View style={styles.container}>
-                <NavBar showLeftBtn={true}  leftBtnPress={()=>Actions.pop()} navbar_text='知乎' left_text='后退' right_text='确认'/>
+                <NavBar showLeftBtn={true} leftBtnPress={()=>Actions.pop()} navbar_text='知乎' left_text='后退' right_text='确认'/>
                 <WebView
                     style={{flex:1}}
                     source={{html: this.state.html}}
