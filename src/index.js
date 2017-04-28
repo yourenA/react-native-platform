@@ -50,7 +50,7 @@ import { registerApp } from 'react-native-wechat';
 export default class Index extends Component {
 
     componentDidMount=()=> {
-        registerApp('wxb24c445773822c79');
+        registerApp('wx88099d9db07f89ba');
         /**
          * 挂载完成后隐藏启动屏
          * */

@@ -26,7 +26,7 @@ class WxItem extends Component {
         const data=this.props.data
         return (
             <TouchableNativeFeedback
-                onPress={() => Actions.wz({wxUrl: data.url})}
+                onPress={() => Actions.wz({wxUrl: data.url,wxTitle:data.title,thumbImage:data.contentImg})}
                 background={   TouchableNativeFeedback.Ripple('#ffdb42',false)}
                 >
                 <View style={styles.listItem}>

@@ -66,12 +66,16 @@ export default class Content extends Component {
                                             console.log("isInstalled", isInstalled)
                                             if (isInstalled) {
                                                 WeChat.shareToSession({
-                                                    title: '123',
-                                                    description: '分享自：iReading',
+                                                    //分享到微信聊天显示title，description
+                                                    title:'分享自：友人A',
+                                                    description:this.props.wxTitle ,
+                                                    thumbImage: this.props.thumbImage,
                                                     type: 'news',
                                                     webpageUrl: this.props.wxUrl
+                                                }).then((result)=>{
+                                                    console.log('share text message to time line successful:', result);
                                                 }).catch((error) => {
-                                                    ToastAndroid.show(error.message.toString(), ToastAndroid.SHORT);
+                                                    console.log("error",error)
                                                 });
                                             } else {
                                                 ToastAndroid.show('没有安装微信软件，请您安装微信之后再试', ToastAndroid.SHORT);
@@ -92,15 +96,22 @@ export default class Content extends Component {
                                         WeChat.isWXAppInstalled().then((isInstalled) => {
                                             if (isInstalled) {
                                                 WeChat.shareToTimeline({
-                                                    title: "标题",
+                                                    //分享到微信朋友圈显示title，不显示description
+                                                    title:this.props.wxTitle,
+                                                    thumbImage: this.props.thumbImage,
                                                     type: 'news',
                                                     webpageUrl: this.props.wxUrl
+                                                }).then((result)=>{
+                                                    console.log('share text message to time line successful:', result);
+                                                    if(result.errCode===0){
+                                                        ToastAndroid.show('分享成功', ToastAndroid.SHORT);
+
+                                                    }
                                                 }).catch((error) => {
-                                                    ToastAndroid.show(error.message.toString(), ToastAndroid.SHORT);
+                                                    console.log("error",error)
                                                 });
                                             } else {
                                                 ToastAndroid.show('没有安装微信软件，请您安装微信之后再试', ToastAndroid.SHORT);
-
                                             }
                                         });
                                     }}
@@ -115,20 +126,7 @@ export default class Content extends Component {
                                 <TouchableOpacity
                                     style={styles.base}
                                     onPress={() => {
-                                        WeChat.isWXAppInstalled().then((isInstalled) => {
-                                            if (isInstalled) {
-                                                WeChat.shareToTimeline({
-                                                    title: "标题",
-                                                    type: 'news',
-                                                    webpageUrl: this.props.wxUrl
-                                                }).catch((error) => {
-                                                    ToastAndroid.show(error.message.toString(), ToastAndroid.SHORT);
-                                                });
-                                            } else {
-                                                ToastAndroid.show('没有安装微信软件，请您安装微信之后再试', ToastAndroid.SHORT);
-
-                                            }
-                                        });
+                                        ToastAndroid.show('暂不支持QQ', ToastAndroid.SHORT);
                                     }}
                                 >
                                     <View style={styles.shareContent}>
@@ -141,20 +139,7 @@ export default class Content extends Component {
                                 <TouchableOpacity
                                     style={styles.base}
                                     onPress={() => {
-                                        WeChat.isWXAppInstalled().then((isInstalled) => {
-                                            if (isInstalled) {
-                                                WeChat.shareToTimeline({
-                                                    title: "标题",
-                                                    type: 'news',
-                                                    webpageUrl: this.props.wxUrl
-                                                }).catch((error) => {
-                                                    ToastAndroid.show(error.message.toString(), ToastAndroid.SHORT);
-                                                });
-                                            } else {
-                                                ToastAndroid.show('没有安装微信软件，请您安装微信之后再试', ToastAndroid.SHORT);
-
-                                            }
-                                        });
+                                        ToastAndroid.show('暂不支持QQ', ToastAndroid.SHORT);
                                     }}
                                 >
                                     <View style={styles.shareContent}>
