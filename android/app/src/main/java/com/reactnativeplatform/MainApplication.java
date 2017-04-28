@@ -16,6 +16,7 @@ import com.facebook.soloader.SoLoader;
 //import com.reactnativecomponent.amap.RCTAMapPackage;
 import org.lovebing.reactnative.baidumap.BaiduMapPackage;
 import com.reactnative.photoview.PhotoViewPackage;
+import com.theweflex.react.WeChatPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -39,7 +40,8 @@ public class MainApplication extends Application implements ReactApplication {
           //new RCTAMapLocationPackage(),  //register Module
           //new RCTAMapPackage(),  //register Module
           new BaiduMapPackage(getApplicationContext()),
-          new PhotoViewPackage() // add this manager
+          new PhotoViewPackage(), // add this manager
+          new WeChatPackage()        // Add this line
       );
     }
   };

@@ -45,9 +45,12 @@ class TabIcon extends React.Component {
         )
     }
 }
+import { registerApp } from 'react-native-wechat';
+
 export default class Index extends Component {
 
     componentDidMount=()=> {
+        registerApp('wxb24c445773822c79');
         /**
          * 挂载完成后隐藏启动屏
          * */
@@ -117,7 +120,7 @@ export default class Index extends Component {
                                    duration={0}
                                    hideNavBar  hideTabBar/>
                             <Scene key='map' title='我在哪?' component={BaiduMap} hideNavBar  hideTabBar/>
-                            <Scene key="ooxx" component={News}  duration={0} hideNavBar />
+                            <Scene key="ooxx" component={News}  duration={0} hideNavBar hideTabBar/>
                             <Scene key="toutiaozhengwen" component={Toutiaozhengwen}  duration={0} hideNavBar hideTabBar/>
                         </Scene>
 

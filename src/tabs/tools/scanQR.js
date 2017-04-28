@@ -39,7 +39,7 @@ export default class ScanQR extends Component {
         Linking.openURL(result).catch(err => console.error('An error occurred', err));
     }
     _onCancel=()=>{
-        Actions.tool();
+        Actions.pop();
     }
     render() {
         return (

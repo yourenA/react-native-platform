@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         width: deviceWidth,
-        height: 60,
+        height: 55,
         borderBottomColor: '#ddd',
         padding: 5,
         borderBottomWidth: 1
