@@ -20,7 +20,6 @@ import Toutiaozhengwen from './tabs/news/toutiaozhengwen';
 import Wx from './tabs/wx/index';
 import Sub from './tabs/wx/sub';
 import Wz from './tabs/wx/wz';
-// import SmartMap from './tabs/smartmap';
 import MqttTest from './tabs/tools/MqttTest';
 import ScanQR from './tabs/tools/scanQR';
 import Weather from './tabs/tools/weather';
@@ -29,11 +28,14 @@ import Todo from './tabs/tools/todo';
 import BaiduMap from './tabs/tools/map';
 import Tool from './tabs/Tool';
 import Image from './tabs/images';
+import ImageTech from './tabs/imageTech';
 import ShowImage from './tabs/showImage';
+// import SmartMap from './tabs/smartmap';
 // import Count from './tabs/count';
 // import SmartLocation from './tabs/smartMapLocation';
 // import Location from './tabs/location';
 // import EleLocation from './tabs/eleLocation';
+
 class TabIcon extends React.Component {
     render() {
         return (
@@ -106,6 +108,7 @@ export default class Index extends Component {
                         </Scene>
                         <Scene key="tab4"  title="摄影" icon={TabIcon} tabIcon="photo" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
                             <Scene key='image' title='画廊'  duration={0} component={Image} hideNavBar  />
+                            <Scene key='imageTech' title='画廊'  duration={0} component={ImageTech} hideNavBar  hideTabBar/>
                             <Scene key='showbigimage' title='画廊'  duration={0} component={ShowImage} hideNavBar  hideTabBar/>
                         </Scene>
                         <Scene key="tab5"  title="千百度" icon={TabIcon} tabIcon="book" navigationBarStyle={{backgroundColor: '#ffdb42'}}>

@@ -37,7 +37,7 @@ export default class Pic extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <NavBar   navbar_text='画廊'/>
+                <NavBar   navbar_text='画廊'  showrightBtn={true}  right_text='技巧'  rightBtnPress={()=>{Actions.imageTech({})}} />
                 <ListView
                     dataSource={this.state.imageDS}
                     renderRow={(rowData, sectionID, rowID) =>
