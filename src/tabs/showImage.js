@@ -22,28 +22,16 @@ import {
 import Swiper from 'react-native-swiper'
 import PhotoView from 'react-native-photo-view'
 import NavBar from './../components/NavBar'
+import Share from './../components/Share'
 
 import {Actions} from 'react-native-router-flux'
-const renderPagination = (index, total, context) => {
-    return (
-        <View style={{
-            position: 'absolute',
-            bottom: 80,
-            right: 10
-        }}>
-            <Text style={{ color: 'grey' }}>
-                <Text style={{
-                    color: 'white',
-                    fontSize: 20
-                }}>{index + 1}</Text>/{total}
-            </Text>
-        </View>
-    )
-}
 export default class Content extends Component {
-    constructor() {
-        super()
-        this.state = {}
+    constructor(props) {
+        super(props)
+        this.state = {
+            isShareModal:false,
+            showIndex: parseInt(this.props.rowID)
+        }
     }
 
     componentDidMount = ()=> {
@@ -51,13 +39,43 @@ export default class Content extends Component {
     }
     componentWillUnmount = ()=> {
     }
-
+    showShare=()=>{
+        this.setState({
+            isShareModal:true
+        })
+    }
+    hideShare=()=>{
+        this.setState({
+            isShareModal:false
+        })
+    }
+    renderPagination = (index, total, context) => {
+        return (
+            <View style={{
+                position: 'absolute',
+                bottom: 80,
+                right: 10
+            }}>
+                <Text style={{ color: 'grey' }}>
+                    <Text style={{
+                        color: 'white',
+                        fontSize: 20
+                    }}>{index + 1}</Text>/{total}
+                </Text>
+            </View>
+        )
+    }
+    onIndexUpdate=(e, state, context)=>{
+        this.setState({
+            showIndex:state.index
+        })
+    }
     render() {
         console.log("this.props", this.props)
         return (
             <View style={styles.container}>
-                <NavBar showLeftBtn={true} leftBtnPress={()=>Actions.pop()} navbar_text='画廊' left_text='后退' right_text='确认'/>
-                <Swiper index={parseInt(this.props.rowID)} style={styles.wrapper}  renderPagination={renderPagination}>
+                <NavBar showLeftBtn={true} leftBtnPress={()=>Actions.pop()} navbar_text='画廊' left_text='后退'  showrightBtn={true}  rightBtnPress={this.showShare}  right_text='分享'/>
+                <Swiper onMomentumScrollEnd={this.onIndexUpdate} index={parseInt(this.props.rowID)} style={styles.wrapper}  renderPagination={this.renderPagination}>
                     {
                         this.props.images.map((item, i) => <View key={i} style={styles.slide}>
                             <PhotoView
@@ -70,6 +88,19 @@ export default class Content extends Component {
                         </View>)
                     }
                 </Swiper>
+                <Share hideShare={this.hideShare} isShareModal={this.state.isShareModal}
+                        shareToSession={{
+                            //分享到微信聊天显示title，description
+                            title: '分享自：友人A',
+                            type: 'imageUrl',
+                            imageUrl:this.props.images[ this.state.showIndex].url
+                        }}
+                        shareToTimeline={{
+                            //分享到微信朋友圈显示title，不显示description
+                            title:'分享自：友人A',
+                            type: 'imageUrl',
+                            imageUrl:this.props.images[this.state.showIndex].url
+                        }}/>
             </View>
         );
     }

@@ -130,7 +130,17 @@ export default class BaiduMapDemo extends Component {
                             mapType: MapTypes.SATELLITE//卫星图
                         });
                     }}/>
+                    <Button title="交通图" onPress={() => {
+                        this.setState({
+                            trafficEnabled: !this.state.trafficEnabled
+                        });
+                    }}/>
 
+                    <Button title="热力图" onPress={() => {
+                        this.setState({
+                            baiduHeatMapEnabled: !this.state.baiduHeatMapEnabled
+                        });
+                    }}/>
 
                 </View>
                 <View style={styles.row}>
@@ -153,19 +163,6 @@ export default class BaiduMapDemo extends Component {
                     }}/>
                 </View>
 
-                <View style={styles.row}>
-                    <Button title="交通图" onPress={() => {
-                        this.setState({
-                            trafficEnabled: !this.state.trafficEnabled
-                        });
-                    }}/>
-
-                    <Button title="热力图" onPress={() => {
-                        this.setState({
-                            baiduHeatMapEnabled: !this.state.baiduHeatMapEnabled
-                        });
-                    }}/>
-                </View>
             </View>
         );
     }

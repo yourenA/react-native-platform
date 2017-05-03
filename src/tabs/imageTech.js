@@ -42,7 +42,7 @@ export default class Content extends Component {
         if(!this.state.WebViewCangoback){
             Actions.pop()
         }else{
-            this._WebView.goBack();
+            this._WebView.goBack();//使WebView后退
         }
     }
     render() {
